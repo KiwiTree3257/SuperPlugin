@@ -1,0 +1,10 @@
+name: SuperPlugin
+version: '${project.version}'
+main: plugin.superplugin.SuperPlugin
+api-version: '1.21'
+
+commands:
+  givesuperitem:
+    description: 슈퍼 아이템을 얻을 수 있는 명령어입니다.
+    usage: /givesuperitem [아이템] [수]
+    aliases: [givesuperitem SUPER_JUNU, givesuperitem SUPER_SIHOO, givesuperitem SUPER_JIHWAN]
