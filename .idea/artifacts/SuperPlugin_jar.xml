@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SuperPlugin:jar">
+    <output-path>$USER_HOME$/AppData/Roaming/.feather/player-server/servers/e7c55ddc-cebb-42ad-ab1c-d622b1cd3eeb/plugins</output-path>
+    <root id="archive" name="SuperPlugin.jar">
+      <element id="module-output" name="SuperPlugin" />
+    </root>
+  </artifact>
+</component>
