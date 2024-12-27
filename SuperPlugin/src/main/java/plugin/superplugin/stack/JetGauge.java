@@ -30,7 +30,15 @@ public class JetGauge {
 
     public static void updateGauge(Player player, double value) {
         if (jetBossBars.containsKey(player)) {
-            jetBossBars.get(player).updateProgress(value);
+            if (value > 1) {
+                jetBossBars.get(player).updateProgress(1);
+            }
+            else if (value < 0) {
+                jetBossBars.get(player).updateProgress(0);
+            }
+            else {
+                jetBossBars.get(player).updateProgress(value);
+            }
         }
     }
 

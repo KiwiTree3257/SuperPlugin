@@ -27,6 +27,7 @@ public class FallingMeteo {
     public FallingMeteo(Player player, Location location1, Location location2) {
         int lifeTime = 10 * 20;
         double speed = 1f;
+        int radius = 10;
         Location startLocation = location1.clone();
         Location endLocation = location2;
 
@@ -48,7 +49,6 @@ public class FallingMeteo {
                 Location fallingMeteoLoc = fallingMeteo.getLocation().clone().add(2.5, 0, 2.5);
 
                 if (timer >= lifeTime || fallingMeteoLoc.getBlock().getType() != Material.AIR) {
-                    int radius = 5;
                     int sampleCountSphere = 100;
 
                     world.playSound(fallingMeteoLoc, Sound.ENTITY_GENERIC_EXPLODE, 2, 1);

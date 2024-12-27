@@ -13,6 +13,8 @@ public class CustomKeys {
 
     public static final NamespacedKey SUPER_JIHWAN = new NamespacedKey(SuperPlugin.getInstance(), "superjihwan");
 
+    public static final NamespacedKey SUPER_EUNHOO = new NamespacedKey(SuperPlugin.getInstance(), "supereunhoo");
+
     public static final NamespacedKey FIRE_ARROW = new NamespacedKey(SuperPlugin.getInstance(), "firearrow");
     public static final NamespacedKey FIRE_DRAGON = new NamespacedKey(SuperPlugin.getInstance(), "firedragon");
 }

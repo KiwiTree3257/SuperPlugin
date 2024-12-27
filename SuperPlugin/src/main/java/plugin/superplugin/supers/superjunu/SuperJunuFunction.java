@@ -249,6 +249,7 @@ public class SuperJunuFunction {
                                 }
                             }
 
+                            player.setFallDistance(0);
                             cancel();
                             return;
                         }

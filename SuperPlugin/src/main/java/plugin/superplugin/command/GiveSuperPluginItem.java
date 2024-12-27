@@ -7,9 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import plugin.superplugin.supers.supereunhoo.SuperEunhooItem;
 import plugin.superplugin.supers.superjihwan.SuperJihwanItem;
-import plugin.superplugin.supers.supersihoo.SuperSihooItem;
 import plugin.superplugin.supers.superjunu.SuperJunuItem;
+import plugin.superplugin.supers.supersihoo.SuperSihooItem;
 
 public class GiveSuperPluginItem implements CommandExecutor {
     @Override
@@ -23,11 +24,12 @@ public class GiveSuperPluginItem implements CommandExecutor {
         }
         else if (strings[0].equals("SUPER_JUNU")) {
             give = SuperJunuItem.SUPER_JUNU;
-        }
-        else if (strings[0].equals("SUPER_SIHOO")) {
+        } else if (strings[0].equals("SUPER_SIHOO")) {
             give = SuperSihooItem.SUPER_SIHOO;
         } else if (strings[0].equals("SUPER_JIHWAN")) {
             give = SuperJihwanItem.SUPER_JIHWAN;
+        } else if (strings[0].equals("SUPER_EUNHOO")) {
+            give = SuperEunhooItem.SUPER_EUNHOO;
         }
 
         if (strings.length == 2){

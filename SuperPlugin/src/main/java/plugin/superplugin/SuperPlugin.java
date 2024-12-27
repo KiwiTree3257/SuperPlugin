@@ -3,6 +3,9 @@ package plugin.superplugin;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.superplugin.command.GiveSuperPluginItem;
+import plugin.superplugin.supers.supereunhoo.SuperEunhooEvent;
+import plugin.superplugin.supers.supereunhoo.SuperEunhooItem;
+import plugin.superplugin.supers.supereunhoo.SuperEunhooRunTime;
 import plugin.superplugin.supers.superjihwan.SuperJihwanEvent;
 import plugin.superplugin.supers.superjihwan.SuperJihwanItem;
 import plugin.superplugin.supers.superjihwan.SuperJihwanRunTime;
@@ -29,6 +32,10 @@ public final class SuperPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SuperJihwanEvent(), this);
         new SuperJihwanItem();
         new SuperJihwanRunTime();
+
+        Bukkit.getPluginManager().registerEvents(new SuperEunhooEvent(), this);
+        new SuperEunhooItem();
+        new SuperEunhooRunTime();
 
         new CoolTimeManager();
     }
