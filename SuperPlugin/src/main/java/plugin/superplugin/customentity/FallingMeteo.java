@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class FallingMeteo {
     BlockDisplay fallingMeteo;
+    Location beforeLoc;
     World world;
     SuperPlugin plugin = SuperPlugin.getInstance();
     int timer = 0;
@@ -29,7 +30,7 @@ public class FallingMeteo {
         double speed = 1f;
         int radius = 10;
         Location startLocation = location1.clone();
-        Location endLocation = location2;
+        beforeLoc = startLocation.clone();
 
         world = location1.getWorld();
         fallingMeteo = (BlockDisplay) world.spawnEntity(startLocation, EntityType.BLOCK_DISPLAY);
@@ -40,7 +41,7 @@ public class FallingMeteo {
 
         world.playSound(startLocation, Sound.BLOCK_RESPAWN_ANCHOR_CHARGE, 2, 0.9f);
 
-        Vector direction = endLocation.clone().subtract(startLocation).toVector();
+        Vector direction = location2.clone().subtract(startLocation).toVector();
         direction.normalize();
 
         new BukkitRunnable() {
@@ -48,7 +49,7 @@ public class FallingMeteo {
             public void run() {
                 Location fallingMeteoLoc = fallingMeteo.getLocation().clone().add(2.5, 0, 2.5);
 
-                if (timer >= lifeTime || fallingMeteoLoc.getBlock().getType() != Material.AIR) {
+                if (timer >= lifeTime || Function.GetIsCollision(fallingMeteoLoc, beforeLoc, 0.1)) {
                     int sampleCountSphere = 100;
 
                     world.playSound(fallingMeteoLoc, Sound.ENTITY_GENERIC_EXPLODE, 2, 1);
@@ -107,8 +108,9 @@ public class FallingMeteo {
                 Location newLocation = new Location(world, x, y, z);
                 world.spawnParticle(Particle.LARGE_SMOKE, fallingMeteoLoc, 10, 0, 0, 0, 0.1);
                 Particle.DustOptions redDust = new Particle.DustOptions(Color.RED, 3);
-                world.spawnParticle(Particle.DUST, endLocation, 10, 1, 1, 1, 0, redDust);
+                world.spawnParticle(Particle.DUST, location2, 10, 1, 1, 1, 0, redDust);
 
+                beforeLoc = fallingMeteoLoc.clone();
                 fallingMeteo.teleport(newLocation.add(-2.5, 0, -2.5));
                 timer++;
             }

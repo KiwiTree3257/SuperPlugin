@@ -18,6 +18,8 @@ import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
+import plugin.superplugin.bossbar.DarkBossBar;
+import plugin.superplugin.stack.DarkStack;
 import plugin.superplugin.stack.FreezeStack;
 
 import java.util.Objects;
@@ -61,38 +63,41 @@ public class SuperEunhooEvent implements Listener {
     }
 
     private void InteractEvent(PersistentDataContainer itemData, Player player, ItemStack item) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
         if (itemData.has(CustomKeys.SUPER_EUNHOO)) {
             switch (itemData.get(CustomKeys.SUPER_EUNHOO, PersistentDataType.INTEGER)) {
                 case 0:
                     SuperEunhooFunction.SuperTransformation(player);
                     break;
                 case 1:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 1)) {
-                        SuperEunhooFunction.EunhooSkill_1(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 1) + "초 남음");
+                    if (playerData.has(CustomKeys.SKILL_STOP)) {
+                        player.sendMessage("스킬을 사용할 수 없습니다");
+                        break;
                     }
+
+                    SuperEunhooFunction.EunhooSkill_1(player, 2 * 20);
                     break;
                 case 2:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 2)) {
-                        SuperEunhooFunction.EunhooSkill_2(player, 8 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 2) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 2)) {
+                        break;
                     }
+
+                    SuperEunhooFunction.EunhooSkill_2(player, 2 * 20);
                     break;
                 case 3:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 3)) {
-                        SuperEunhooFunction.EunhooSkill_3(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 3) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 3)) {
+                        break;
                     }
+
+                    SuperEunhooFunction.EunhooSkill_3(player, 2 * 20);
                     break;
                 case 4:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 4)) {
-                        SuperEunhooFunction.EunhooUltimate(player, 20 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 4) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 4)) {
+                        break;
                     }
+
+                    SuperEunhooFunction.EunhooUltimate(player, 20 * 20);
                     break;
             }
         }
@@ -145,7 +150,7 @@ public class SuperEunhooEvent implements Listener {
                 Objects.equals(e.getDamager().getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), supername) &&
                 e.getEntity() instanceof LivingEntity) {
 
-            FreezeStack.FreezeEntity((LivingEntity) e.getEntity());
+            DarkStack.DarkEntity((LivingEntity) e.getEntity());
         }
     }
 }

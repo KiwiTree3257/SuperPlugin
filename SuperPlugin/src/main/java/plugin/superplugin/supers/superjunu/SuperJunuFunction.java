@@ -313,7 +313,7 @@ public class SuperJunuFunction {
 
                 @Override
                 public void run() {
-                    if (timer >= skillTime || !Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
+                    if (timer >= skillTime || !Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername) || playerData.has(CustomKeys.FIRE_RIDER)) {
                         player.getInventory().setArmorContents(armorContents);
                         for (int i = 0; i < setArmorContents.length; i++) {
                             int[] indexes = Function.FindItemPDIndexesAtPlayerInventory(player, setArmorContents[i], PersistentDataType.INTEGER);
@@ -342,6 +342,8 @@ public class SuperJunuFunction {
                             }
                         }
 
+                        playerData.remove(CustomKeys.FIRE_RIDER);
+
                         cancel();
                         return;
                     }
@@ -358,6 +360,8 @@ public class SuperJunuFunction {
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
             new FireDragon(player, player.getLocation());
+            playerData.set(CustomKeys.FIRE_RIDER, PersistentDataType.BOOLEAN, true);
+
             CoolTimeManager.SetCoolTime(player, supername, 8, delay);
         }
     }

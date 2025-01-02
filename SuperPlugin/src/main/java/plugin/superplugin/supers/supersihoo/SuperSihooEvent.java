@@ -61,38 +61,40 @@ public class SuperSihooEvent implements Listener {
     }
 
     private void InteractEvent(PersistentDataContainer itemData, Player player, ItemStack item) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
         if (itemData.has(CustomKeys.SUPER_SIHOO)) {
             switch (itemData.get(CustomKeys.SUPER_SIHOO, PersistentDataType.INTEGER)) {
                 case 0:
                     SuperSihooFunction.SuperTransformation(player);
                     break;
                 case 1:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 1)) {
-                        SuperSihooFunction.SihooSkill_1(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 1) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 1)) {
+                        break;
                     }
+
+                    SuperSihooFunction.SihooSkill_1(player, 2 * 20);
                     break;
                 case 2:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 2)) {
-                        SuperSihooFunction.SihooSkill_2(player, 8 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 2) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 2)) {
+                        break;
                     }
+
+                    SuperSihooFunction.SihooSkill_2(player, 8 * 20);
                     break;
                 case 3:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 3)) {
-                        SuperSihooFunction.SihooSkill_3(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 3) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 3)) {
+                        break;
                     }
+
+                    SuperSihooFunction.SihooSkill_3(player, 2 * 20);
                     break;
                 case 4:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 4)) {
-                        SuperSihooFunction.SihooUltimate(player, 20 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 4) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 4)) {
+                        break;
                     }
+
+                    SuperSihooFunction.SihooUltimate(player, 20 * 20);
                     break;
             }
         }

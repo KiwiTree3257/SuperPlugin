@@ -64,38 +64,40 @@ public class SuperJihwanEvent implements Listener {
     }
 
     private void InteractEvent(PersistentDataContainer itemData, Player player, ItemStack item) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
         if (itemData.has(CustomKeys.SUPER_JIHWAN)) {
             switch (itemData.get(CustomKeys.SUPER_JIHWAN, PersistentDataType.INTEGER)) {
                 case 0:
                     SuperJihwanFunction.SuperTransformation(player);
                     break;
                 case 1:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 1)) {
-                        SuperJihwanFunction.JihwanSkill_1(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 1) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 1)) {
+                        break;
                     }
+
+                    SuperJihwanFunction.JihwanSkill_1(player, 2 * 20);
                     break;
                 case 2:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 2)) {
-                        SuperJihwanFunction.JihwanSkill_2(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 2) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 2)) {
+                        break;
                     }
+
+                    SuperJihwanFunction.JihwanSkill_2(player, 2 * 20);
                     break;
                 case 3:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 3)) {
-                        SuperJihwanFunction.JihwanSkill_3(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 3) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 3)) {
+                        break;
                     }
+
+                    SuperJihwanFunction.JihwanSkill_3(player, 2 * 20);
                     break;
                 case 4:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 4)) {
-                        SuperJihwanFunction.JihwanUltimate(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 4) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 4)) {
+                        break;
                     }
+
+                    SuperJihwanFunction.JihwanUltimate(player, 20 * 20);
                     break;
             }
         }

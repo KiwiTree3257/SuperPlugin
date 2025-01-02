@@ -17,6 +17,7 @@ import java.util.Iterator;
 public class IceArrow {
     int lifeTime = 10 * 20;
     Location iceArrow;
+    Location beforeLoc;
     Vector moveDir;
     World world;
     SuperPlugin plugin = SuperPlugin.getInstance();
@@ -27,6 +28,7 @@ public class IceArrow {
         world = player.getWorld();
         Location spawnLoc = start.clone();
         iceArrow = spawnLoc;
+        beforeLoc = spawnLoc.clone();
 
         world.playSound(spawnLoc, Sound.BLOCK_TRIAL_SPAWNER_SPAWN_ITEM, 1, 1);
 
@@ -51,12 +53,10 @@ public class IceArrow {
                         entity.damage(1);
                     }
 
-                    if (iceArrow.getBlock().getType() != Material.AIR && iceArrow.getBlock().getType() != Material.SNOW) {
-                        if (!iceArrow.getBlock().isCollidable()) {
-                            iceArrow.getBlock().setType(Material.SNOW);
-                        }
-                        else if (iceArrow.clone().add(0, 1, 0).getBlock().getType() == Material.AIR) {
-                            iceArrow.clone().add(0, 1, 0).getBlock().setType(Material.SNOW);
+                    if (Function.GetIsCollision(iceArrow, beforeLoc, 0.1) && iceArrow.getBlock().getType() != Material.SNOW) {
+                        Location snowLoc = Function.GetHighestLocNear(iceArrow, 2);
+                        if (snowLoc != null) {
+                            snowLoc.add(0, 1, 0).getBlock().setType(Material.SNOW);
                         }
                     }
 
@@ -67,6 +67,7 @@ public class IceArrow {
 
 
                 world.spawnParticle(Particle.SNOWFLAKE, iceArrow, 10, 0, 0, 0, 0);
+                beforeLoc = iceArrow.clone();
                 iceArrow.add(moveDir);
             }
         }.runTaskTimer(plugin, 0, 1);
