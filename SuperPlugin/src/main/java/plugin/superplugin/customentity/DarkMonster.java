@@ -3,7 +3,6 @@ package plugin.superplugin.customentity;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
 import org.bukkit.entity.Zombie;
 import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.inventory.ItemStack;

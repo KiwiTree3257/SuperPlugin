@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
 
@@ -26,8 +27,10 @@ public class SuperEunhooRunTime {
                 ArrayList<Player> superEunhooPlayers = Function.GetSuperPlayers(supername);
 
                 for (Player player : superEunhooPlayers) {
-                    player.addPotionEffect(SPEED);
-                    player.addPotionEffect(JUMP_BOOST);
+                    if (player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
+                        player.addPotionEffect(SPEED);
+                        player.addPotionEffect(JUMP_BOOST);
+                    }
                 }
             }
         }.runTaskTimer(plugin, 0, 1);

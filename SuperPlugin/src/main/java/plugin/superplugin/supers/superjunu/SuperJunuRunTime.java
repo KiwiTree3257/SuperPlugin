@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
 
@@ -33,27 +34,28 @@ public class SuperJunuRunTime {
                 ArrayList<Player> superJunuPlayers = Function.GetSuperPlayers(supername);
 
                 for (Player player : superJunuPlayers) {
-                    player.setFireTicks(0);
-                    player.addPotionEffect(FIRE_RESISTANCE);
-                    player.addPotionEffect(SPEED);
-                    player.addPotionEffect(JUMP_BOOST);
+                    if (player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
+                        player.setFireTicks(0);
+                        player.addPotionEffect(FIRE_RESISTANCE);
+                        player.addPotionEffect(SPEED);
+                        player.addPotionEffect(JUMP_BOOST);
+                        if (player.getLocation().getBlock().getType() == Material.LAVA) {
+                            if (playerFireTicks.containsKey(player.getUniqueId())) {
+                                playerFireTicks.put(player.getUniqueId(), playerFireTicks.get(player.getUniqueId()) + 1);
 
-                    if (player.getLocation().getBlock().getType() == Material.LAVA) {
-                        if (playerFireTicks.containsKey(player.getUniqueId())) {
-                            playerFireTicks.put(player.getUniqueId(), playerFireTicks.get(player.getUniqueId()) + 1);
-
-                            if (playerFireTicks.get(player.getUniqueId()) >= 20 * 2) {
-                                player.heal(2);
-                                playerFireTicks.remove(player.getUniqueId());
+                                if (playerFireTicks.get(player.getUniqueId()) >= 20 * 2) {
+                                    player.heal(2);
+                                    playerFireTicks.remove(player.getUniqueId());
+                                }
+                            }
+                            else {
+                                playerFireTicks.put(player.getUniqueId(), 1);
                             }
                         }
                         else {
-                            playerFireTicks.put(player.getUniqueId(), 1);
-                        }
-                    }
-                    else {
-                        if (playerFireTicks.containsKey(player.getUniqueId())) {
-                            playerFireTicks.remove(player.getUniqueId());
+                            if (playerFireTicks.containsKey(player.getUniqueId())) {
+                                playerFireTicks.remove(player.getUniqueId());
+                            }
                         }
                     }
                 }
