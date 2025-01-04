@@ -5,10 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Skull;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -22,12 +18,7 @@ import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 import plugin.superplugin.CoolTimeManager;
-import plugin.superplugin.CustomKeys;
-import plugin.superplugin.Function;
-import plugin.superplugin.SuperPlugin;
 import plugin.superplugin.customentity.DarkGrab;
 import plugin.superplugin.stack.DarkStack;
 
@@ -253,7 +244,7 @@ public class SuperEunhooFunction {
                             cancel();
                         }
 
-
+                        
 
                         timer++;
                     }
