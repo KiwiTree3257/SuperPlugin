@@ -51,6 +51,7 @@ public final class SuperPlugin extends JavaPlugin {
         }
         Bukkit.getPluginManager().registerEvents(new DarkWorldEvent(), this);
         new DarkWorld();
+
         Bukkit.getPluginManager().registerEvents(new Event(), this);
     }
 
