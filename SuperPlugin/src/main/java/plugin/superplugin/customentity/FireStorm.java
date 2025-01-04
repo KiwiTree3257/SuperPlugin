@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class FireStorm {
     int lifeTime = 2 * 20;
     Location fireStorm;
+    Location beforeLoc;
     Vector moveDir;
     World world;
     SuperPlugin plugin = SuperPlugin.getInstance();
@@ -27,6 +28,7 @@ public class FireStorm {
         spawnLoc.add(0, 1.5, 0);
         spawnLoc.add(moveDir.clone().multiply(5));
         fireStorm = spawnLoc;
+        beforeLoc = spawnLoc.clone();
 
         world.playSound(spawnLoc, Sound.ITEM_FIRECHARGE_USE, 1, 1);
 
@@ -35,7 +37,7 @@ public class FireStorm {
             public void run() {
                 timer++;
 
-                if (timer >= lifeTime || fireStorm.clone().add(0, 1, 0).getBlock().isCollidable()) {
+                if (timer >= lifeTime || Function.GetIsCollision(fireStorm, beforeLoc, 0.1)) {
                     world.createExplosion(fireStorm, 5);
                     cancel();
                     return;
@@ -61,6 +63,7 @@ public class FireStorm {
 
                 world.spawnParticle(Particle.FLAME, fireStorm, 50, 1, 1, 1, 0.3);
                 world.spawnParticle(Particle.LARGE_SMOKE, fireStorm, 30, 1, 1, 1, 0.3);
+                beforeLoc = fireStorm.clone();
                 fireStorm.add(moveDir);
             }
         }.runTaskTimer(plugin, 0, 1);

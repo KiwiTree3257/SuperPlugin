@@ -28,9 +28,9 @@ public class CoolTimeManager {
     public static boolean CheckCoolTime(Player player, String superName, int superNumber) {
         if (!playerCoolTimes.containsKey(player) || !playerCoolTimes.get(player).containsKey(superName) || !playerCoolTimes.get(player).get(superName).containsKey(superNumber) ||
             playerCoolTimes.get(player).get(superName).get(superNumber) < System.currentTimeMillis()) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

@@ -32,6 +32,4 @@ public class SuperEunhooRunTime {
             }
         }.runTaskTimer(plugin, 0, 1);
     }
-
-
 }

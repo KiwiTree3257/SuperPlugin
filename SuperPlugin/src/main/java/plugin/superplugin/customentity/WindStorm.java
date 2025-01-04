@@ -39,7 +39,7 @@ public class WindStorm {
             public void run() {
                 timer++;
 
-                if (timer >= lifeTime || windStorm.getBlock().isCollidable()) {
+                if (timer >= lifeTime) {
                     cancel();
                     return;
                 }
@@ -56,7 +56,7 @@ public class WindStorm {
                     moveEntities.add(entity);
                 }
 
-                world.spawnParticle(Particle.WHITE_SMOKE, windStorm, 30, 1, 1, 1, 0);
+                world.spawnParticle(Particle.WHITE_SMOKE, windStorm, 60, 1, 1, 1, 0);
                 windStorm.add(moveDir);
             }
         }.runTaskTimer(plugin, 0, 1);

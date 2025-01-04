@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
 
@@ -21,7 +22,7 @@ public class Tornado {
     private int lifeTime = 20 * 10;
     private World world;
 
-    public Tornado(Player player, Location startLoc, int radius) {
+    public Tornado(Player player, Location startLoc, int radius, int cooltime) {
         tornadoLoc = startLoc;
         world = player.getWorld();
 
@@ -77,6 +78,7 @@ public class Tornado {
                     }
                 }
 
+                CoolTimeManager.SetCoolTime(player, "superjihwan", 4, cooltime);
                 timer++;
             }
         }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);

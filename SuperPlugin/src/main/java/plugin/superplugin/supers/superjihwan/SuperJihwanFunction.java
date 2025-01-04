@@ -148,7 +148,7 @@ public class SuperJihwanFunction {
                         particleLoc = Function.GetHighestLocNear(particleLoc, 3);
                         if (particleLoc != null) {
                             particleLoc.add(0, 1, 0);
-                            world.spawnParticle(Particle.CLOUD, particleLoc, 10, 0, 0, 0, 0.1);
+                            world.spawnParticle(Particle.SMALL_GUST, particleLoc, 10, 0.2, 0.2, 0.2, 0);
                         }
 
                         timer++;
@@ -215,9 +215,7 @@ public class SuperJihwanFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            new Tornado(player, player.getLocation(), 10);
-
-            CoolTimeManager.SetCoolTime(player, supername, 4, delay);
+            new Tornado(player, player.getLocation(), 10, delay);
         }
     }
 }

@@ -14,7 +14,12 @@ public class CustomKeys {
     public static final NamespacedKey SUPER_JIHWAN = new NamespacedKey(SuperPlugin.getInstance(), "superjihwan");
 
     public static final NamespacedKey SUPER_EUNHOO = new NamespacedKey(SuperPlugin.getInstance(), "supereunhoo");
+    public static final NamespacedKey DARK_STACK = new NamespacedKey(SuperPlugin.getInstance(), "darkstack");
 
     public static final NamespacedKey FIRE_ARROW = new NamespacedKey(SuperPlugin.getInstance(), "firearrow");
     public static final NamespacedKey FIRE_DRAGON = new NamespacedKey(SuperPlugin.getInstance(), "firedragon");
+    public static final NamespacedKey FIRE_RIDER = new NamespacedKey(SuperPlugin.getInstance(), "firerider");
+
+    public static final NamespacedKey SKILL_STOP = new NamespacedKey(SuperPlugin.getInstance(), "skillstop");
+    public static final NamespacedKey MOVE_STOP = new NamespacedKey(SuperPlugin.getInstance(), "movestop");
 }

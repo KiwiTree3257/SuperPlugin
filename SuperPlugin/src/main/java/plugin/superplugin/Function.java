@@ -14,6 +14,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import plugin.superplugin.bossbar.FreezeBossBar;
 
 import java.util.*;
@@ -137,5 +138,33 @@ public class Function {
         circleLoc.setZ(z);
 
         return circleLoc;
+    }
+
+    public static boolean CheckSkillUse(Player player, String supername, int skillNumber) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
+        if (CoolTimeManager.CheckCoolTime(player, supername, skillNumber)) {
+            player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, skillNumber) + "초 남음");
+            return true;
+        } else if (playerData.has(CustomKeys.SKILL_STOP)) {
+            player.sendMessage("스킬을 사용할 수 없습니다");
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean GetIsCollision(Location nowLoc, Location beforeLoc, double step) {
+        Vector dir = nowLoc.clone().subtract(beforeLoc).toVector().normalize();
+        double distance = beforeLoc.distance(nowLoc);
+
+        for (double i = 0; i <= distance; i += step) {
+            Location loc = beforeLoc.clone().add(dir.clone().multiply(i));
+            if (loc.getBlock().isCollidable()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

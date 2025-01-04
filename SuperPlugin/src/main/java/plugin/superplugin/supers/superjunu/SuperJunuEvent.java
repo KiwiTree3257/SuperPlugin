@@ -68,6 +68,7 @@ public class SuperJunuEvent implements Listener {
 
     private void InteractEvent(PersistentDataContainer itemData, Player player, ItemStack item) {
         Inventory playerInventory = player.getInventory();
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (itemData.has(CustomKeys.SUPER_JUNU)) {
             switch (itemData.get(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER)) {
@@ -75,63 +76,63 @@ public class SuperJunuEvent implements Listener {
                     SuperJunuFunction.SuperTransformation(player);
                     break;
                 case 1:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 1)) {
-                        SuperJunuFunction.JunuSkill_1(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 1) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 1)) {
+                        break;
                     }
+
+                    SuperJunuFunction.JunuSkill_1(player, 2 * 20);
                     break;
                 case 2:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 2)) {
-                        SuperJunuFunction.JunuSkill_2(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 2) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 2)) {
+                        break;
                     }
+
+                    SuperJunuFunction.JunuSkill_2(player, 2 * 20);
                     break;
                 case 3:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 3)) {
-                        SuperJunuFunction.JunuSkill_3(player, item);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 3) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 3)) {
+                        break;
                     }
+
+                    SuperJunuFunction.JunuSkill_3(player, item);
                     break;
                 case 4:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 4)) {
-                        SuperJunuFunction.JunuSkill_4(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 4) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 4)) {
+                        break;
                     }
+
+                    SuperJunuFunction.JunuSkill_4(player, 2 * 20);
                     break;
                 case 5:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 5)) {
-                        SuperJunuFunction.JunuSkill_5(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 5) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 5)) {
+                        break;
                     }
+
+                    SuperJunuFunction.JunuSkill_5(player, 2 * 20);
                     break;
                 case 6:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 6)) {
-                        Block targetBlock = player.getTargetBlockExact(20);
-                        if (targetBlock != null) {
-                            SuperJunuFunction.JunuSkill_6(player, targetBlock, 2 * 20);
-                        }
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 6) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 6)) {
+                        break;
+                    }
+
+                    Block targetBlock = player.getTargetBlockExact(20);
+                    if (targetBlock != null) {
+                        SuperJunuFunction.JunuSkill_6(player, targetBlock, 2 * 20);
                     }
                     break;
                 case 7:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 7)) {
-                        SuperJunuFunction.JunuUltimate(player, 25 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 7) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 7)) {
+                        break;
                     }
+
+                    SuperJunuFunction.JunuUltimate(player, 25 * 20);
                     break;
                 case 8:
-                    if (CoolTimeManager.CheckCoolTime(player, supername, 8)) {
-                        SuperJunuFunction.JunuUltimate_2(player, 2 * 20);
-                    } else {
-                        player.sendMessage("쿨타임 " + CoolTimeManager.GetCoolTime(player, supername, 8) + "초 남음");
+                    if (Function.CheckSkillUse(player, supername, 8)) {
+                        break;
                     }
+
+                    SuperJunuFunction.JunuUltimate_2(player, 2 * 20);
                     break;
             }
         } else if (itemData.has(CustomKeys.FIRE_ARROW)) {
