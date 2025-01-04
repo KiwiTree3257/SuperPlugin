@@ -20,6 +20,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.customentity.DarkGrab;
+import plugin.superplugin.customentity.OHH;
 import plugin.superplugin.stack.DarkStack;
 
 import java.util.ArrayList;
@@ -182,7 +183,7 @@ public class SuperEunhooFunction {
                         particleLoc.add(0, 1, 0);
 
                         if (timer % 40 == 0) {
-                            world.spawnParticle(Particle.SOUL, particleLoc, 50, 0, 0, 0, 0.1);
+                            world.spawnParticle(Particle.SCULK_SOUL, particleLoc, 50, 0, 0, 0, 0.1);
                         }
                         else {
                             world.spawnParticle(Particle.DUST, particleLoc, 1, 0, 0, 0, 0, blackDust);
@@ -235,20 +236,20 @@ public class SuperEunhooFunction {
             if (darkWorld != null) {
                 Location darkWorldSpawnLoc = darkWorld.getSpawnLocation();
 
-                new BukkitRunnable() {
-                    int timer = 0;
-
-                    @Override
-                    public void run() {
-                        if (timer >= 10 * 20) {
-                            cancel();
-                        }
-
-
-
-                        timer++;
-                    }
-                }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
+                new OHH(player);
+//                new BukkitRunnable() {
+//                    int timer = 0;
+//
+//                    @Override
+//                    public void run() {
+//                        if (timer >= 10 * 20) {
+//                            cancel();
+//                        }
+//
+//
+//                        timer++;
+//                    }
+//                }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
             }
         }
     }
