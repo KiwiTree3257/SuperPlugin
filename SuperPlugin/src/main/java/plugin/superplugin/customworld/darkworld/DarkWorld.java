@@ -51,9 +51,9 @@ public class DarkWorld {
                                 player.addPotionEffect(DARKNESS);
                             }
                         }
-                    }.runTaskLater(SuperPlugin.getInstance(), random.nextInt(12) * 20);
+                    }.runTaskLater(SuperPlugin.getInstance(), random.nextInt(5) * 20);
                 }
             }
-        }.runTaskTimer(SuperPlugin.getInstance(), 0, 20 * 5);
+        }.runTaskTimer(SuperPlugin.getInstance(), 0, 20 * 10);
     }
 }
