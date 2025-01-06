@@ -209,7 +209,7 @@ public class SuperEunhooFunction {
                                     entity.getPersistentDataContainer().remove(CustomKeys.MOVE_STOP);
                                 }
                             }
-                        }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
+                        }.runTaskLater(SuperPlugin.getInstance(), 20);
                     }
 
                     player.addPotionEffect(SPEED);

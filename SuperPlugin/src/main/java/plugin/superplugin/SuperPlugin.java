@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.superplugin.command.GiveSuperPluginItem;
-import plugin.superplugin.customworld.darkworld.DarkWorld;
+import plugin.superplugin.customworld.darkworld.DarkWorldController;
 import plugin.superplugin.customworld.darkworld.DarkWorldEvent;
 import plugin.superplugin.customworld.darkworld.DarkWorldGenerator;
 import plugin.superplugin.supers.supereunhoo.SuperEunhooEvent;
@@ -50,7 +50,8 @@ public final class SuperPlugin extends JavaPlugin {
             darkWorld = DarkWorldGenerator.CreateDarkWorld("darkworld");
         }
         Bukkit.getPluginManager().registerEvents(new DarkWorldEvent(), this);
-        new DarkWorld();
+        DarkWorldController darkWorldController = new DarkWorldController();
+        darkWorldController.AllEntityRemove();
 
         Bukkit.getPluginManager().registerEvents(new Event(), this);
     }
