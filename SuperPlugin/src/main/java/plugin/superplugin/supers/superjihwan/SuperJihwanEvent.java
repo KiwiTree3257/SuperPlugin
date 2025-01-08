@@ -142,15 +142,4 @@ public class SuperJihwanEvent implements Listener {
             }
         }
     }
-
-    @EventHandler
-    public void EntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
-        if (
-                e.getDamager() instanceof Player &&
-                Objects.equals(e.getDamager().getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), supername) &&
-                e.getEntity() instanceof LivingEntity) {
-
-            FreezeStack.FreezeEntity((LivingEntity) e.getEntity());
-        }
-    }
 }

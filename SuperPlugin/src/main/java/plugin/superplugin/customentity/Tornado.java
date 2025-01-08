@@ -32,7 +32,8 @@ public class Tornado {
 
             @Override
             public void run() {
-                if (timer >= lifeTime) {
+                timer++;
+                if (timer > lifeTime) {
                     cancel();
                 }
 
@@ -60,7 +61,7 @@ public class Tornado {
                     double newZ = tornadoLoc.getZ() + newRadius * Math.sin(newAngle);
 
                     // Y축 변화 추가 (소용돌이 효과)
-                    double newY = entityLocation.getY() + addYVelocity;
+                    double newY = entityLocation.getY() + (entityLocation.getY() + addYVelocity > entityLocation.getY() + radius - 1 ? 0 : addYVelocity);
 
                     // 플레이어의 속도 설정 (새로운 위치 방향으로 이동)
                     Vector velocity = new Vector(newX - entityLocation.getX(), newY - entityLocation.getY(), newZ - entityLocation.getZ());
@@ -78,8 +79,17 @@ public class Tornado {
                     }
                 }
 
+                if (timer % 40 == 0) {
+                    for (LivingEntity entity : entities) {
+                        if (entity.getUniqueId().equals(player.getUniqueId())) {
+                            continue;
+                        }
+
+                        entity.damage(2);
+                    }
+                }
+
                 CoolTimeManager.SetCoolTime(player, "superjihwan", 4, cooltime);
-                timer++;
             }
         }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
     }

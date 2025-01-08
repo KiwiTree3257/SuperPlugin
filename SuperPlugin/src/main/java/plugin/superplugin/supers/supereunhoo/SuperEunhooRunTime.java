@@ -27,7 +27,7 @@ public class SuperEunhooRunTime {
                 ArrayList<Player> superEunhooPlayers = Function.GetSuperPlayers(supername);
 
                 for (Player player : superEunhooPlayers) {
-                    if (player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
+                    if (!player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
                         player.addPotionEffect(SPEED);
                         player.addPotionEffect(JUMP_BOOST);
                     }

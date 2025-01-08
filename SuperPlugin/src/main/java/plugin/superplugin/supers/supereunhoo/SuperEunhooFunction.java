@@ -1,9 +1,6 @@
 package plugin.superplugin.supers.supereunhoo;
 
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -23,10 +20,7 @@ import plugin.superplugin.customentity.DarkGrab;
 import plugin.superplugin.customentity.OHH;
 import plugin.superplugin.stack.DarkStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class SuperEunhooFunction {
     private static String supername = "supereunhoo";
@@ -129,7 +123,7 @@ public class SuperEunhooFunction {
                             }
 
                             Vector targetDir = darkGrab.getTargetLocation().subtract(player.getLocation()).toVector().normalize().multiply(2);
-                            if (player.getLocation().clone().add(targetDir.normalize()).getBlock().isCollidable() && targetDir.getY() > 0) {
+                            if (player.getLocation().clone().add(targetDir.normalize()).getBlock().isCollidable() && darkGrab.getTargetLocation().getY() >= player.getLocation().getY() - 1) {
                                 targetDir.setY(targetDir.getY() + 1);
                             }
 
@@ -223,7 +217,41 @@ public class SuperEunhooFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
+            int radius = 2;
+            int skillTime = 5 * 20;
+            final Particle.DustOptions blueDust = new Particle.DustOptions(Color.BLUE, 2);
+            final PotionEffect SLOWNESS = new PotionEffect(PotionEffectType.SLOWNESS, 5, 2, false, false);
+            playerData.set(CustomKeys.NEXT_ATTACK_EUNHOO, PersistentDataType.BOOLEAN, true);
 
+            new BukkitRunnable() {
+                int timer = 1;
+
+                @Override
+                public void run() {
+                    if (timer > skillTime) {
+                        playerData.remove(CustomKeys.NEXT_ATTACK_EUNHOO);
+                        cancel();
+                    }
+
+                    Location center = player.getLocation();
+                    World world = player.getWorld();
+
+                    int circlePoints = 20;
+                    for (int i = 0; i < circlePoints; i++) {
+                        Location particleLoc = Function.getCircleLocation(radius, i * ((double) 360 / circlePoints), center);
+                        particleLoc = Function.GetHighestLocNear(particleLoc, 2);
+                        if (particleLoc == null) {
+                            continue;
+                        }
+                        particleLoc.add(0, 1, 0);
+
+                        world.spawnParticle(Particle.DUST, particleLoc, 1, 0, 0, 0, 0, blueDust);
+                    }
+
+                    player.addPotionEffect(SLOWNESS);
+                    timer++;
+                }
+            }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
         }
     }
 
@@ -234,22 +262,60 @@ public class SuperEunhooFunction {
             World darkWorld = SuperPlugin.darkWorld;
 
             if (darkWorld != null) {
-                Location darkWorldSpawnLoc = darkWorld.getSpawnLocation();
+                World world = player.getWorld();
+                PotionEffect INVISIBILITY = new PotionEffect(PotionEffectType.INVISIBILITY, 20, 0, false, false);
+                int radius = 2;
 
-                new OHH(player);
-//                new BukkitRunnable() {
-//                    int timer = 0;
-//
-//                    @Override
-//                    public void run() {
-//                        if (timer >= 10 * 20) {
-//                            cancel();
-//                        }
-//
-//
-//                        timer++;
-//                    }
-//                }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
+                new BukkitRunnable() {
+                    int timer = 0;
+                    Random random = new Random();
+
+                    @Override
+                    public void run() {
+                        if (timer >= 5 * 20) {
+                            cancel();
+                        }
+
+                        player.addPotionEffect(INVISIBILITY);
+                        world.spawnParticle(Particle.SQUID_INK, player.getLocation(), 50, 1, 1, 1, 0.1);
+                        ArrayList<LivingEntity> entities = new ArrayList<>(player.getLocation().getNearbyLivingEntities(radius));
+                        for (LivingEntity entity : entities) {
+                            if (entity instanceof Player && !entity.getUniqueId().equals(player.getUniqueId())) {
+                                Location darkWorldSpawnLoc = darkWorld.getSpawnLocation().add(random.nextInt(100), 0, random.nextInt(100));
+                                for (int i = 0; darkWorldSpawnLoc.getBlock().isCollidable() || i < 100; i++) {
+                                    darkWorldSpawnLoc = darkWorld.getSpawnLocation().add(random.nextInt(100), 0, random.nextInt(100));
+                                }
+
+                                Location entityLoc = entity.getLocation();
+                                Location playerLoc = player.getLocation();
+
+                                entity.teleport(darkWorldSpawnLoc);
+                                player.teleport(darkWorldSpawnLoc);
+
+                                cancel();
+                                new BukkitRunnable() {
+                                    int timer_2 = 0;
+
+                                    @Override
+                                    public void run() {
+                                        if (entity.isDead() || timer_2 >= 10 * 20) {
+                                            entity.teleport(entityLoc);
+                                            player.teleport(playerLoc);
+                                            cancel();
+                                        }
+
+                                        timer_2++;
+                                    }
+                                }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
+                            }
+                        }
+
+                        player.setVelocity(player.getLocation().getDirection().normalize().multiply(0.5));
+                        player.setFallDistance(0);
+
+                        timer++;
+                    }
+                }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
             }
         }
     }

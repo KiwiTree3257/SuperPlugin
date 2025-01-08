@@ -1,11 +1,14 @@
 package plugin.superplugin.supers.supereunhoo;
 
+import org.bukkit.damage.DamageSource;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -14,13 +17,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
-import plugin.superplugin.bossbar.DarkBossBar;
 import plugin.superplugin.stack.DarkStack;
-import plugin.superplugin.stack.FreezeStack;
 
 import java.util.Objects;
 
@@ -145,12 +145,21 @@ public class SuperEunhooEvent implements Listener {
 
     @EventHandler
     public void EntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+        Entity damager = e.getDamager();
+        Entity entity = e.getEntity();
+
         if (
                 e.getDamager() instanceof Player &&
                 Objects.equals(e.getDamager().getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), supername) &&
                 e.getEntity() instanceof LivingEntity) {
 
-            DarkStack.DarkEntity((LivingEntity) e.getEntity());
+            DarkStack.DarkEntity((LivingEntity) entity);
+
+            if (e.getDamager().getPersistentDataContainer().has(CustomKeys.NEXT_ATTACK_EUNHOO)) {
+                entity.setVelocity(damager.getLocation().getDirection().normalize().multiply(3));
+                ((LivingEntity) entity).damage(6);
+                e.getDamager().getPersistentDataContainer().remove(CustomKeys.NEXT_ATTACK_EUNHOO);
+            }
         }
     }
 }

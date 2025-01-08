@@ -27,7 +27,7 @@ public class SuperSihooRunTime {
                 ArrayList<Player> superSihooPlayers = Function.GetSuperPlayers(supername);
 
                 for (Player player : superSihooPlayers) {
-                    if (player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
+                    if (!player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
                         player.addPotionEffect(SPEED);
                         player.addPotionEffect(JUMP_BOOST);
                     }

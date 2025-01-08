@@ -34,7 +34,7 @@ public class SuperJunuRunTime {
                 ArrayList<Player> superJunuPlayers = Function.GetSuperPlayers(supername);
 
                 for (Player player : superJunuPlayers) {
-                    if (player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
+                    if (!player.getPersistentDataContainer().has(CustomKeys.SKILL_STOP)) {
                         player.setFireTicks(0);
                         player.addPotionEffect(FIRE_RESISTANCE);
                         player.addPotionEffect(SPEED);
