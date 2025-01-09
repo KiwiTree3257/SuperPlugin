@@ -39,23 +39,18 @@ public class FireArrow {
             public void run() {
                 timer++;
 
-                ArrayList<LivingEntity> nearbyLivingEntities = new ArrayList<>(fireArrow.getNearbyLivingEntities(1));
-                Iterator<LivingEntity> iterator = nearbyLivingEntities.iterator();
-                while (iterator.hasNext()) {
-                    LivingEntity entity = iterator.next();
+                ArrayList<LivingEntity> entities = new ArrayList<>(fireArrow.getNearbyLivingEntities(1));
+                for (LivingEntity entity : entities) {
                     if (entity.getUniqueId().equals(player.getUniqueId())) {
-                        iterator.remove();
+                        continue;
                     }
+                    entity.setFireTicks(5 * 20);
+                    entity.damage(2);
+                    cancel();
                 }
 
-                if (timer >= lifeTime || Function.GetIsCollision(fireArrow, beforeLoc, 0.1) || !nearbyLivingEntities.isEmpty()) {
-                    if (!nearbyLivingEntities.isEmpty()) {
-                        for (LivingEntity entity : nearbyLivingEntities) {
-                            entity.setFireTicks(5 * 20);
-                            entity.damage(2);
-                        }
-                    }
-                    if (fireArrow.getBlock().getType() != Material.AIR) {
+                if (timer >= lifeTime || Function.GetIsCollision(fireArrow, beforeLoc, 0.1)) {
+                    if (Function.GetIsCollision(fireArrow, beforeLoc, 0.1)) {
                         boolean setFire = false;
 
                         for (int i = -1; i <= 1; i++) {

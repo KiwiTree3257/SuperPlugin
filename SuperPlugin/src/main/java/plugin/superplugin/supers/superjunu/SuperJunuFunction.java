@@ -96,89 +96,7 @@ public class SuperJunuFunction {
             CoolTimeManager.SetCoolTime(player, supername, 1, delay);
         }
     }
-    public static void JunuSkill_2(Player player, int delay) {
-        PersistentDataContainer playerData = player.getPersistentDataContainer();
-
-        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            World world = player.getWorld();
-            ArrayList<LivingEntity> entities = new ArrayList<>(player.getLocation().getNearbyLivingEntities(20));
-            entities.remove(player);
-            Random random = new Random();
-            int bandong = 4;
-
-            if (!entities.isEmpty()) {
-                world.playSound(player.getLocation(), Sound.ITEM_BUCKET_EMPTY_LAVA, 1, 1);
-
-                for (int i = 0; i < 10; i++) {
-                    Location endLoc;
-                    if (entities.size() <= i) {
-                        endLoc = entities.get(i % entities.size()).getLocation();
-                    }
-                    else {
-                        endLoc = entities.get(i).getLocation();
-                    }
-
-                    endLoc.add(random.nextDouble() * bandong - bandong / 2f, 0, random.nextDouble() * bandong - bandong / 2f);
-                    endLoc = Function.GetHighestLocNear(endLoc, 5);
-                    if (endLoc == null)
-                        continue;
-                    Location startLoc = Function.setLookAt(player.getLocation(), endLoc);
-                    startLoc.add(startLoc.getDirection().normalize().multiply(2));
-                    startLoc = Function.GetHighestLocNear(startLoc, 5);
-                    if (startLoc == null)
-                        continue;
-
-                    Location spawnLoc = startLoc.clone().add(0, 2, 0);
-
-
-                    new FallingLava(player, spawnLoc, endLoc, 7, 30);
-
-                    startLoc.getBlock().setType(Material.MAGMA_BLOCK);
-                    world.spawnParticle(Particle.LAVA, spawnLoc, 20);
-                    CoolTimeManager.SetCoolTime(player, supername, 2, delay);
-                }
-            }
-        }
-    }
-    public static void JunuSkill_3(Player player, ItemStack item) {
-        PersistentDataContainer playerData = player.getPersistentDataContainer();
-
-        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            Inventory playerInventory = player.getInventory();
-            for (int i = 0; i < playerInventory.getSize(); i++) {
-                if (playerInventory.getItem(i) == null)
-                    continue;
-
-                if (playerInventory.getItem(i).equals(item)) {
-                    playerInventory.setItem(i, SuperJunuItem.FIRE_ARROW);
-                    break;
-                }
-            }
-        }
-    }
-
-    public static void JunuSkill_4(Player player, int delay) {
-        PersistentDataContainer playerData = player.getPersistentDataContainer();
-
-        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            new FireExplosion(player);
-            CoolTimeManager.SetCoolTime(player, supername, 4, delay);
-        }
-    }
-
-    public static void JunuSkill_5(Player player, int delay) {
-        PersistentDataContainer playerData = player.getPersistentDataContainer();
-
-        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            Block endBlock = player.getTargetBlockExact(50);
-            if (endBlock != null) {
-                new FallingMeteo(player, player.getLocation().add(0, 20, 0), endBlock.getLocation());
-                CoolTimeManager.SetCoolTime(player, supername, 5, delay);
-            }
-        }
-    }
-
-    public static void JunuSkill_6(Player player, Block targetBlock, int delay) {
+    public static void JunuSkill_2(Player player, Block targetBlock, int delay) {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
@@ -214,8 +132,8 @@ public class SuperJunuFunction {
 
                         double progress = (double) timer / totalTime;
                         double nextProgress = (double) (timer + 1) / totalTime;
-                        double y = 0;
-                        double nextY = 0;
+                        double y;
+                        double nextY;
                         if (progress < 0.5) {
                             y = maxY + peakHeight * (1 - Math.pow(1 - progress * 2, 2));
                             nextY = maxY + peakHeight * (1 - Math.pow(1 - nextProgress * 2, 2));
@@ -257,11 +175,78 @@ public class SuperJunuFunction {
                         world.spawnParticle(Particle.FLAME, newLocation, 10, 0, 0, 0, 0.1);
 
                         player.teleport(newLocation);
-                        CoolTimeManager.SetCoolTime(player, supername, 6, delay);
+                        CoolTimeManager.SetCoolTime(player, supername, 2, delay);
                         timer++;
                     }
                 }.runTaskTimer(plugin, 0, 1);
             }
+        }
+    }
+    public static void JunuSkill_3(Player player, ItemStack item) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
+        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
+            Inventory playerInventory = player.getInventory();
+            for (int i = 0; i < playerInventory.getSize(); i++) {
+                if (playerInventory.getItem(i) == null)
+                    continue;
+
+                if (playerInventory.getItem(i).equals(item)) {
+                    playerInventory.setItem(i, SuperJunuItem.FIRE_ARROW);
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void JunuSkill_4(Player player, int delay) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
+        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
+            new FireExplosion(player);
+            CoolTimeManager.SetCoolTime(player, supername, 4, delay);
+        }
+    }
+
+    public static void JunuSkill_5(Player player, int delay) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
+        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
+            Block endBlock = player.getTargetBlockExact(50);
+            if (endBlock != null) {
+                new FallingMeteo(player, player.getLocation().add(0, 20, 0), endBlock.getLocation());
+                CoolTimeManager.SetCoolTime(player, supername, 5, delay);
+            }
+        }
+    }
+
+    public static void JunuSkill_6(Player player, int delay) {
+        PersistentDataContainer playerData = player.getPersistentDataContainer();
+
+        if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
+            Random random = new Random();
+            int randomAngle = 45;
+            int breathCount = 50;
+            int skillTime = 4 * 20;
+
+            new BukkitRunnable() {
+                int counter = 0;
+
+                @Override
+                public void run() {
+                    if (counter >= breathCount) {
+                        cancel();
+                    }
+
+                    Location playerLoc = player.getLocation().clone();
+                    playerLoc.setPitch((random.nextInt(randomAngle + 1) - randomAngle / 2) + playerLoc.getPitch());
+                    playerLoc.setYaw((random.nextInt(randomAngle + 1) - randomAngle / 2) + playerLoc.getYaw());
+                    Vector dir = playerLoc.getDirection().normalize().multiply(1);
+
+                    new FireBreath(player, dir);
+                    counter++;
+                }
+            }.runTaskTimer(SuperPlugin.getInstance(), 0, skillTime / breathCount);
         }
     }
 
@@ -269,7 +254,7 @@ public class SuperJunuFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            int skillTime = 20 * 20;
+            int skillTime = 40 * 20;
             ItemStack[] setArmorContents = SuperJunuItem.armorItems.clone();
             ItemStack[] armorContents = player.getInventory().getArmorContents();
             for (int i = 0; i < armorContents.length; i++) {
@@ -346,6 +331,11 @@ public class SuperJunuFunction {
 
                         cancel();
                         return;
+                    }
+
+                    if (player.isGliding()) {
+                        player.setVelocity(player.getLocation().getDirection().normalize());
+                        player.setFallDistance(0);
                     }
 
                     CoolTimeManager.SetCoolTime(player, supername, 7, delay);

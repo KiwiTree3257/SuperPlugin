@@ -37,25 +37,20 @@ public class IceArrow {
             public void run() {
                 timer++;
 
-                ArrayList<LivingEntity> nearbyLivingEntities = new ArrayList<>(iceArrow.getNearbyLivingEntities(1));
-                Iterator<LivingEntity> iterator = nearbyLivingEntities.iterator();
-                while (iterator.hasNext()) {
-                    LivingEntity entity = iterator.next();
+                ArrayList<LivingEntity> entities = new ArrayList<>(iceArrow.getNearbyLivingEntities(1));
+                for (LivingEntity entity : entities) {
                     if (entity.getUniqueId().equals(player.getUniqueId())) {
-                        iterator.remove();
+                        continue;
                     }
+                    FreezeStack.FreezeEntity(entity);
+                    entity.damage(1);
+                    cancel();
                 }
 
-                if (timer >= lifeTime || iceArrow.getBlock().getType() != Material.AIR || !nearbyLivingEntities.isEmpty()) {
-                    if (!nearbyLivingEntities.isEmpty()) {
-                        LivingEntity entity = nearbyLivingEntities.get(0);
-                        FreezeStack.FreezeEntity(entity);
-                        entity.damage(1);
-                    }
-
-                    if (Function.GetIsCollision(iceArrow, beforeLoc, 0.1) && iceArrow.getBlock().getType() != Material.SNOW) {
+                if (timer >= lifeTime || Function.GetIsCollision(iceArrow, beforeLoc, 0.1)) {
+                    if (Function.GetIsCollision(iceArrow, beforeLoc, 0.1)) {
                         Location snowLoc = Function.GetHighestLocNear(iceArrow, 2);
-                        if (snowLoc != null) {
+                        if (snowLoc != null  && snowLoc.getBlock().getType() != Material.SNOW) {
                             snowLoc.add(0, 1, 0).getBlock().setType(Material.SNOW);
                         }
                     }

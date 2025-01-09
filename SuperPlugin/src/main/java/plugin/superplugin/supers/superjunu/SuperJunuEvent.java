@@ -86,8 +86,10 @@ public class SuperJunuEvent implements Listener {
                     if (Function.CheckSkillUse(player, supername, 2)) {
                         break;
                     }
-
-                    SuperJunuFunction.JunuSkill_2(player, 2 * 20);
+                    Block targetBlock = player.getTargetBlockExact(20);
+                    if (targetBlock != null) {
+                        SuperJunuFunction.JunuSkill_2(player, targetBlock, 2 * 20);
+                    }
                     break;
                 case 3:
                     if (Function.CheckSkillUse(player, supername, 3)) {
@@ -115,10 +117,7 @@ public class SuperJunuEvent implements Listener {
                         break;
                     }
 
-                    Block targetBlock = player.getTargetBlockExact(20);
-                    if (targetBlock != null) {
-                        SuperJunuFunction.JunuSkill_6(player, targetBlock, 2 * 20);
-                    }
+                    SuperJunuFunction.JunuSkill_6(player, 2 * 20);
                     break;
                 case 7:
                     if (Function.CheckSkillUse(player, supername, 7)) {

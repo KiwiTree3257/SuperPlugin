@@ -131,10 +131,9 @@ public class SuperJunuItem {
             JUNU_ARMOR_LEGGINGS.setItemMeta(meta);
         }
 
-        JUNU_ARMOR_CHESTPLATE = Function.BuildItem(Material.NETHERITE_CHESTPLATE, 1, ChatColor.DARK_RED + "불의 갑옷");
+        JUNU_ARMOR_CHESTPLATE = Function.BuildItem(Material.ELYTRA, 1, ChatColor.DARK_RED + "불의 날개");
         {
-            ArmorMeta meta = (ArmorMeta) JUNU_ARMOR_CHESTPLATE.getItemMeta();
-            meta.setTrim(new ArmorTrim(TrimMaterial.REDSTONE, TrimPattern.SILENCE));
+            ItemMeta meta = JUNU_ARMOR_CHESTPLATE.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.JUNU_ARMOR, PersistentDataType.INTEGER, 2);
             meta.setUnbreakable(true);
             JUNU_ARMOR_CHESTPLATE.setItemMeta(meta);
