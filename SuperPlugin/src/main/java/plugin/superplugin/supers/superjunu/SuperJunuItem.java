@@ -55,7 +55,7 @@ public class SuperJunuItem {
             SUPER_JUNU_SKILL_1.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_2 = Function.BuildItem(Material.ORANGE_DYE, 1, ChatColor.YELLOW + "용암 분출");
+        SUPER_JUNU_SKILL_2 = Function.BuildItem(Material.ORANGE_DYE, 1, ChatColor.YELLOW + "드레곤 플라이");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_2.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 2);
@@ -85,7 +85,7 @@ public class SuperJunuItem {
             SUPER_JUNU_SKILL_5.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_6 = Function.BuildItem(Material.YELLOW_DYE, 1, ChatColor.YELLOW + "뿌슝빠슝");
+        SUPER_JUNU_SKILL_6 = Function.BuildItem(Material.YELLOW_DYE, 1, ChatColor.YELLOW + "브레스");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_6.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 6);

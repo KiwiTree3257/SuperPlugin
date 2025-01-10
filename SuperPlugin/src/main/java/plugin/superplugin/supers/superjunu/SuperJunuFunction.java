@@ -245,6 +245,7 @@ public class SuperJunuFunction {
 
                     new FireBreath(player, dir);
                     counter++;
+                    CoolTimeManager.SetCoolTime(player, supername, 6, delay);
                 }
             }.runTaskTimer(SuperPlugin.getInstance(), 0, skillTime / breathCount);
         }
@@ -254,7 +255,7 @@ public class SuperJunuFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            int skillTime = 40 * 20;
+            int skillTime = 25 * 20;
             ItemStack[] setArmorContents = SuperJunuItem.armorItems.clone();
             ItemStack[] armorContents = player.getInventory().getArmorContents();
             for (int i = 0; i < armorContents.length; i++) {
@@ -334,7 +335,7 @@ public class SuperJunuFunction {
                     }
 
                     if (player.isGliding()) {
-                        player.setVelocity(player.getLocation().getDirection().normalize());
+                        player.setVelocity(player.getLocation().getDirection().normalize().multiply(0.5));
                         player.setFallDistance(0);
                     }
 

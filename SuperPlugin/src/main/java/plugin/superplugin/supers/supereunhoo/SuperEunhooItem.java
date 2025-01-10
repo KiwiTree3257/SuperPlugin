@@ -27,28 +27,28 @@ public class SuperEunhooItem {
             SUPER_EUNHOO.setItemMeta(meta);
         }
 
-        SUPER_EUNHOO_SKILL_1 = Function.BuildItem(Material.BLACK_DYE, 1, ChatColor.YELLOW + "서리폭풍");
+        SUPER_EUNHOO_SKILL_1 = Function.BuildItem(Material.BLACK_DYE, 1, ChatColor.YELLOW + "어둠의 손아귀");
         {
             ItemMeta meta = SUPER_EUNHOO_SKILL_1.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_EUNHOO, PersistentDataType.INTEGER, 1);
             SUPER_EUNHOO_SKILL_1.setItemMeta(meta);
         }
 
-        SUPER_EUNHOO_SKILL_2 = Function.BuildItem(Material.MUSIC_DISC_STAL, 1, ChatColor.YELLOW + "얼음장벽");
+        SUPER_EUNHOO_SKILL_2 = Function.BuildItem(Material.MUSIC_DISC_STAL, 1, ChatColor.YELLOW + "칠흑의 장판");
         {
             ItemMeta meta = SUPER_EUNHOO_SKILL_2.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_EUNHOO, PersistentDataType.INTEGER, 2);
             SUPER_EUNHOO_SKILL_2.setItemMeta(meta);
         }
 
-        SUPER_EUNHOO_SKILL_3 = Function.BuildItem(Material.WITHER_ROSE, 1, ChatColor.YELLOW + "겨울바람");
+        SUPER_EUNHOO_SKILL_3 = Function.BuildItem(Material.WITHER_ROSE, 1, ChatColor.YELLOW + "영혼 강타");
         {
             ItemMeta meta = SUPER_EUNHOO_SKILL_3.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_EUNHOO, PersistentDataType.INTEGER, 3);
             SUPER_EUNHOO_SKILL_3.setItemMeta(meta);
         }
 
-        SUPER_EUNHOO_ULTIMATE = Function.BuildItem(Material.WITHER_SKELETON_SKULL, 1, ChatColor.YELLOW + "아이스 돔");
+        SUPER_EUNHOO_ULTIMATE = Function.BuildItem(Material.WITHER_SKELETON_SKULL, 1, ChatColor.YELLOW + "암흑의 지옥");
         {
             ItemMeta meta = SUPER_EUNHOO_ULTIMATE.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_EUNHOO, PersistentDataType.INTEGER, 4);

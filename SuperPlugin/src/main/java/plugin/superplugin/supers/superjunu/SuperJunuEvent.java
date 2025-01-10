@@ -80,7 +80,7 @@ public class SuperJunuEvent implements Listener {
                         break;
                     }
 
-                    SuperJunuFunction.JunuSkill_1(player, 2 * 20);
+                    SuperJunuFunction.JunuSkill_1(player, 5 * 20);
                     break;
                 case 2:
                     if (Function.CheckSkillUse(player, supername, 2)) {
@@ -88,7 +88,7 @@ public class SuperJunuEvent implements Listener {
                     }
                     Block targetBlock = player.getTargetBlockExact(20);
                     if (targetBlock != null) {
-                        SuperJunuFunction.JunuSkill_2(player, targetBlock, 2 * 20);
+                        SuperJunuFunction.JunuSkill_2(player, targetBlock, 12 * 20);
                     }
                     break;
                 case 3:
@@ -103,28 +103,28 @@ public class SuperJunuEvent implements Listener {
                         break;
                     }
 
-                    SuperJunuFunction.JunuSkill_4(player, 2 * 20);
+                    SuperJunuFunction.JunuSkill_4(player, 8 * 20);
                     break;
                 case 5:
                     if (Function.CheckSkillUse(player, supername, 5)) {
                         break;
                     }
 
-                    SuperJunuFunction.JunuSkill_5(player, 2 * 20);
+                    SuperJunuFunction.JunuSkill_5(player, 8 * 20);
                     break;
                 case 6:
                     if (Function.CheckSkillUse(player, supername, 6)) {
                         break;
                     }
 
-                    SuperJunuFunction.JunuSkill_6(player, 2 * 20);
+                    SuperJunuFunction.JunuSkill_6(player, 8 * 20);
                     break;
                 case 7:
                     if (Function.CheckSkillUse(player, supername, 7)) {
                         break;
                     }
 
-                    SuperJunuFunction.JunuUltimate(player, 25 * 20);
+                    SuperJunuFunction.JunuUltimate(player, 40 * 20);
                     break;
                 case 8:
                     if (Function.CheckSkillUse(player, supername, 8)) {
@@ -135,7 +135,7 @@ public class SuperJunuEvent implements Listener {
                     break;
             }
         } else if (itemData.has(CustomKeys.FIRE_ARROW)) {
-            int delay = 2 * 20;
+            int delay = 6 * 20;
             new FireArrow(player);
 
             if (!player.getLocation().clone().add(0, -0.1, 0).getBlock().isCollidable()) {
