@@ -23,10 +23,10 @@ public class DarkWorldEvent implements Listener {
         }
     }
 
-    @EventHandler
-    public void PlayerInteractEvent(PlayerInteractEvent e) {
-        if (e.getPlayer().getWorld().getName().equals("darkworld")) {
-            e.setCancelled(true);
-        }
-    }
+//    @EventHandler
+//    public void PlayerInteractEvent(PlayerInteractEvent e) {
+//        if (e.getPlayer().getWorld().getName().equals("darkworld")) {
+//            e.setCancelled(true);
+//        }
+//    }
 }

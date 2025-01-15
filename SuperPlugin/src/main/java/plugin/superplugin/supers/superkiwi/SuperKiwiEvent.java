@@ -1,14 +1,9 @@
-package plugin.superplugin.supers.supereunhoo;
+package plugin.superplugin.supers.superkiwi;
 
-import org.bukkit.damage.DamageSource;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -17,16 +12,23 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.util.Vector;
+import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
-import plugin.superplugin.stack.DarkStack;
+import plugin.superplugin.customentity.FireArrow;
+import plugin.superplugin.customentity.WormHole;
+import plugin.superplugin.supers.superjunu.SuperJunuItem;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 
-public class SuperEunhooEvent implements Listener {
+public class SuperKiwiEvent implements Listener {
     private SuperPlugin plugin = SuperPlugin.getInstance();
-    private String supername = "supereunhoo";
+    private static HashMap<Player, WormHole> playerWormHoles = new HashMap<>();
+    private String supername = "superkiwi";
 
     @EventHandler
     public void PlayerInteractEvent(PlayerInteractEvent e) {
@@ -36,7 +38,7 @@ public class SuperEunhooEvent implements Listener {
             PersistentDataContainer itemData = item.getItemMeta().getPersistentDataContainer();
 
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
-                if (itemData.has(CustomKeys.SUPER_EUNHOO)) {
+                if (itemData.has(CustomKeys.SUPER_KIWI) || itemData.has(CustomKeys.WORM_HOLE)) {
                     e.setCancelled(true);
                     if (player.getInventory().getItemInMainHand().equals(item)) {
                         InteractEvent(itemData, player, item);
@@ -53,7 +55,7 @@ public class SuperEunhooEvent implements Listener {
             ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
             PersistentDataContainer itemData = item.getItemMeta().getPersistentDataContainer();
 
-            if (itemData.has(CustomKeys.SUPER_EUNHOO)) {
+            if (itemData.has(CustomKeys.SUPER_KIWI) || itemData.has(CustomKeys.WORM_HOLE)) {
                 e.setCancelled(true);
                 if (player.getInventory().getItemInMainHand().equals(item)) {
                     InteractEvent(itemData, player, item);
@@ -65,40 +67,60 @@ public class SuperEunhooEvent implements Listener {
     private void InteractEvent(PersistentDataContainer itemData, Player player, ItemStack item) {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
-        if (itemData.has(CustomKeys.SUPER_EUNHOO)) {
-            switch (itemData.get(CustomKeys.SUPER_EUNHOO, PersistentDataType.INTEGER)) {
+        if (itemData.has(CustomKeys.SUPER_KIWI)) {
+            switch (itemData.get(CustomKeys.SUPER_KIWI, PersistentDataType.INTEGER)) {
                 case 0:
-                    SuperEunhooFunction.SuperTransformation(player);
+                    SuperKiwiFunction.SuperTransformation(player);
                     break;
                 case 1:
-                    if (playerData.has(CustomKeys.SKILL_STOP)) {
-                        player.sendMessage("스킬을 사용할 수 없습니다");
+                    if (Function.CheckSkillUse(player, supername, 1)) {
                         break;
                     }
 
-                    SuperEunhooFunction.EunhooSkill_1(player, 3 * 20);
+                    SuperKiwiFunction.KiwiSkill_1(player);
                     break;
                 case 2:
                     if (Function.CheckSkillUse(player, supername, 2)) {
                         break;
                     }
 
-                    SuperEunhooFunction.EunhooSkill_2(player, 8 * 20);
+                    SuperKiwiFunction.KiwiSkill_2(player, 2 * 20);
                     break;
                 case 3:
                     if (Function.CheckSkillUse(player, supername, 3)) {
                         break;
                     }
 
-                    SuperEunhooFunction.EunhooSkill_3(player, 2 * 20);
+                    SuperKiwiFunction.KiwiSkill_3(player, 2 * 20);
                     break;
                 case 4:
                     if (Function.CheckSkillUse(player, supername, 4)) {
                         break;
                     }
 
-                    SuperEunhooFunction.EunhooUltimate(player, 35 * 20);
+                    SuperKiwiFunction.KiwiUltimate(player, 20 * 20);
                     break;
+            }
+        } else if (itemData.has(CustomKeys.WORM_HOLE)) {
+            int delay = 2 * 20;
+
+            playerWormHoles.putIfAbsent(player, new WormHole(player.getUniqueId()));
+            playerWormHoles.get(player).ThrowWormHole((SuperKiwiItem.WORMHOLE.getAmount() - item.getAmount()) % 2);
+
+            if (item.getAmount() == 1) {
+                int[] wormholes = Function.FindItemPDIndexesAtPlayerInventory(player, SuperKiwiItem.WORMHOLE, PersistentDataType.INTEGER);
+                if (wormholes != null) {
+                    if (wormholes.length > 1) {
+                        item.setAmount(item.getAmount() - 1);
+                    }
+                    else {
+                        player.getInventory().setItem(wormholes[0], SuperKiwiItem.SUPER_KIWI_SKILL_1);
+                        CoolTimeManager.SetCoolTime(player, supername, 1, delay);
+                    }
+                }
+            }
+            else {
+                item.setAmount(item.getAmount() - 1);
             }
         }
     }
@@ -106,11 +128,11 @@ public class SuperEunhooEvent implements Listener {
     @EventHandler
     public void PlayerDropItemEvent(PlayerDropItemEvent e) {
         ItemStack itemStack = e.getItemDrop().getItemStack();
-        ItemStack[] cancelItemStacks = SuperEunhooItem.removeItems.clone();
+        ItemStack[] cancelItemStacks = SuperKiwiItem.removeItems.clone();
         Player player = e.getPlayer();
 
         if (Objects.equals(player.getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            if (Function.CompareItemPersistentData(itemStack, SuperEunhooItem.SUPER_EUNHOO, PersistentDataType.INTEGER))
+            if (Function.CompareItemPersistentData(itemStack, SuperKiwiItem.SUPER_KIWI, PersistentDataType.INTEGER))
                 e.setCancelled(true);
         }
 
@@ -127,38 +149,18 @@ public class SuperEunhooEvent implements Listener {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            SuperEunhooFunction.Untransformed(player);
+            SuperKiwiFunction.Untransformed(player);
         }
     }
 
     @EventHandler
     public void ItemSpawnEvent(ItemSpawnEvent e) {
-        ItemStack[] cancelItemStacks = SuperEunhooItem.removeItems.clone();
+        ItemStack[] cancelItemStacks = SuperKiwiItem.removeItems.clone();
         ItemStack itemStack = e.getEntity().getItemStack();
 
         for (int i = 0; i < cancelItemStacks.length; i++) {
             if (Function.CompareItemPersistentData(itemStack, cancelItemStacks[i], PersistentDataType.INTEGER)) {
                 e.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void EntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
-        Entity damager = e.getDamager();
-        Entity entity = e.getEntity();
-
-        if (
-                e.getDamager() instanceof Player &&
-                Objects.equals(e.getDamager().getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), supername) &&
-                e.getEntity() instanceof LivingEntity) {
-
-            DarkStack.DarkEntity((LivingEntity) entity);
-
-            if (e.getDamager().getPersistentDataContainer().has(CustomKeys.NEXT_ATTACK_EUNHOO)) {
-                entity.setVelocity(damager.getLocation().getDirection().normalize().multiply(3));
-                ((LivingEntity) entity).damage(6);
-                e.getDamager().getPersistentDataContainer().remove(CustomKeys.NEXT_ATTACK_EUNHOO);
             }
         }
     }

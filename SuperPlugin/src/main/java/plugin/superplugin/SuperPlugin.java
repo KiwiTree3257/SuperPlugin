@@ -13,6 +13,9 @@ import plugin.superplugin.supers.supereunhoo.SuperEunhooRunTime;
 import plugin.superplugin.supers.superjihwan.SuperJihwanEvent;
 import plugin.superplugin.supers.superjihwan.SuperJihwanItem;
 import plugin.superplugin.supers.superjihwan.SuperJihwanRunTime;
+import plugin.superplugin.supers.superkiwi.SuperKiwiEvent;
+import plugin.superplugin.supers.superkiwi.SuperKiwiItem;
+import plugin.superplugin.supers.superkiwi.SuperKiwiRunTime;
 import plugin.superplugin.supers.supersihoo.SuperSihooEvent;
 import plugin.superplugin.supers.supersihoo.SuperSihooItem;
 import plugin.superplugin.supers.supersihoo.SuperSihooRunTime;
@@ -42,6 +45,10 @@ public final class SuperPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SuperEunhooEvent(), this);
         new SuperEunhooItem();
         new SuperEunhooRunTime();
+
+        Bukkit.getPluginManager().registerEvents(new SuperKiwiEvent(), this);
+        new SuperKiwiItem();
+        new SuperKiwiRunTime();
 
         new CoolTimeManager();
 

@@ -291,6 +291,7 @@ public class SuperEunhooFunction {
 
                                 entity.teleport(darkWorldSpawnLoc);
                                 player.teleport(darkWorldSpawnLoc);
+                                entity.getPersistentDataContainer().set(CustomKeys.SKILL_STOP, PersistentDataType.BOOLEAN, true);
 
                                 cancel();
                                 new BukkitRunnable() {
@@ -301,9 +302,11 @@ public class SuperEunhooFunction {
                                         if (entity.isDead() || timer_2 >= 10 * 20) {
                                             entity.teleport(entityLoc);
                                             player.teleport(playerLoc);
+                                            entity.getPersistentDataContainer().remove(CustomKeys.SKILL_STOP);
                                             cancel();
                                         }
 
+                                        CoolTimeManager.SetCoolTime(player, supername, 4, delay);
                                         timer_2++;
                                     }
                                 }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
@@ -312,6 +315,7 @@ public class SuperEunhooFunction {
 
                         player.setVelocity(player.getLocation().getDirection().normalize().multiply(0.5));
                         player.setFallDistance(0);
+                        CoolTimeManager.SetCoolTime(player, supername, 4, delay);
 
                         timer++;
                     }

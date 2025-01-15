@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import plugin.superplugin.supers.supereunhoo.SuperEunhooItem;
 import plugin.superplugin.supers.superjihwan.SuperJihwanItem;
 import plugin.superplugin.supers.superjunu.SuperJunuItem;
+import plugin.superplugin.supers.superkiwi.SuperKiwiItem;
 import plugin.superplugin.supers.supersihoo.SuperSihooItem;
 
 public class GiveSuperPluginItem implements CommandExecutor {
@@ -30,6 +31,8 @@ public class GiveSuperPluginItem implements CommandExecutor {
             give = SuperJihwanItem.SUPER_JIHWAN;
         } else if (strings[0].equals("SUPER_EUNHOO")) {
             give = SuperEunhooItem.SUPER_EUNHOO;
+        } else if (strings[0].equals("SUPER_KIWI")) {
+            give = SuperKiwiItem.SUPER_KIWI;
         }
 
         if (strings.length == 2){
