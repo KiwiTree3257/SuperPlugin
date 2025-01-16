@@ -39,8 +39,8 @@ public class WormHole {
     }
 
     private class OneWormHole {
-        private Particle.DustOptions AQUADUST = new Particle.DustOptions(Color.AQUA, 1);
-        private Particle.DustOptions PURPLEDUST = new Particle.DustOptions(Color.PURPLE, 1);
+        private Particle.DustOptions AQUADUST = new Particle.DustOptions(Color.AQUA, 1.5f);
+        private Particle.DustOptions PURPLEDUST = new Particle.DustOptions(Color.PURPLE, 1.5f);
         private Location wormHoleLoc;
         public OneWormHole wormHoleOther;
         public boolean open = false;
@@ -61,7 +61,6 @@ public class WormHole {
 
                         if (timer >= 10 * 20 || close) {
                             cancel();
-                            Bukkit.getPlayer(playerUUID).sendMessage(close + "");
                         }
                     }
                     else {
@@ -82,6 +81,7 @@ public class WormHole {
                             @Override
                             public void run() {
                                 if (timer_2 >= 10 * 20 || close) {
+                                    open = false;
                                     cancel();
                                 }
 
@@ -105,11 +105,17 @@ public class WormHole {
                                         SuperKiwiFunction.entityWormHoleCoolTime.putIfAbsent(entity.getUniqueId(), 0.0);
                                         Double coolTime = SuperKiwiFunction.entityWormHoleCoolTime.get(entity.getUniqueId());
                                         if (tpLoc != null && wormHoleOther.open && coolTime < System.currentTimeMillis()) {
+                                            world.playSound(entity.getLocation(), Sound.ENTITY_PLAYER_TELEPORT, 1, 1);
+                                            world.spawnParticle(Particle.ENCHANT, tpLoc, 200, 0, 0, 0, 1);
+
                                             tpLoc.setYaw(entity.getYaw());
                                             tpLoc.setPitch(entity.getPitch());
                                             entity.setFallDistance(0);
                                             entity.teleport(tpLoc);
-                                            SuperKiwiFunction.entityWormHoleCoolTime.put(entity.getUniqueId(), (double) (System.currentTimeMillis() + 1000));
+                                            world.playSound(entity.getLocation(), Sound.ENTITY_PLAYER_TELEPORT, 1, 1);
+                                            world.spawnParticle(Particle.ENCHANT, tpLoc, 200, 0, 0, 0, 1);
+
+                                            SuperKiwiFunction.entityWormHoleCoolTime.put(entity.getUniqueId(), (double) (System.currentTimeMillis() + 2000));/////////////////
                                         }
                                     }
                                 }

@@ -17,13 +17,12 @@ import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
+import plugin.superplugin.customentity.BlackHole;
+import plugin.superplugin.customentity.Star;
 import plugin.superplugin.customentity.Tornado;
 import plugin.superplugin.customentity.WormHole;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class SuperKiwiFunction {
     private static String supername = "superkiwi";
@@ -112,48 +111,9 @@ public class SuperKiwiFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            World world = player.getWorld();
-            Block targetBlock = player.getTargetBlockExact(15);
+            Block targetBlock = player.getTargetBlockExact(10);
             if (targetBlock != null) {
-                Location targetLoc = targetBlock.getLocation().add(0, 1, 0);
-
-                new BukkitRunnable() {
-                    int timer = 0;
-                    final int particleTime = 20 * 2;
-                    final int spinCount = particleTime / 20;
-                    final int radius = 5;
-                    final int addYVelocity = 2;
-                    final PotionEffect DARKNESS = new PotionEffect(PotionEffectType.DARKNESS, 3 * 20, 0, false, false, false);
-                    final PotionEffect SLOWNESS = new PotionEffect(PotionEffectType.SLOWNESS, 3 * 20, 1, false, false, false);
-
-                    @Override
-                    public void run() {
-                        if (timer >= particleTime) {
-                            cancel();
-
-                            ArrayList<LivingEntity> entities = new ArrayList<>(targetLoc.getNearbyLivingEntities(radius));
-                            for (LivingEntity entity : entities) {
-                                Vector velocity = entity.getVelocity().clone();
-                                velocity.setY(velocity.getY() + addYVelocity);
-                                entity.setVelocity(velocity);
-                                entity.addPotionEffect(DARKNESS);
-                                entity.addPotionEffect(SLOWNESS);
-                                world.spawnParticle(Particle.GUST, entity.getLocation(), 5, 1, 1, 1);
-                            }
-                        }
-
-                        double degree = ((double) timer / particleTime) * spinCount * 360;
-                        Location particleLoc = Function.getCircleLocation(radius, degree, targetLoc);
-                        particleLoc = Function.GetHighestLocNear(particleLoc, 3);
-                        if (particleLoc != null) {
-                            particleLoc.add(0, 1, 0);
-                            world.spawnParticle(Particle.SMALL_GUST, particleLoc, 10, 0.2, 0.2, 0.2, 0);
-                        }
-
-                        timer++;
-                        CoolTimeManager.SetCoolTime(player, supername, 2, delay);
-                    }
-                }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
+                new BlackHole(player.getUniqueId(), targetBlock.getLocation());
             }
         }
     }
@@ -161,52 +121,22 @@ public class SuperKiwiFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            final PotionEffect SLOWNESS = new PotionEffect(PotionEffectType.SLOWNESS, 30, 2, false, false, false);
-            player.addPotionEffect(SLOWNESS);
-            World world = player.getWorld();
-
-            CoolTimeManager.SetCoolTime(player, supername, 3, delay);
-
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Vector dir = player.getLocation().getDirection().normalize();
-                    dir.setY(dir.getY() + 0.1);
-                    dir.multiply(3);
-                    player.setVelocity(dir);
-
-                    world.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
-                    world.spawnParticle(Particle.EXPLOSION, player.getLocation(), 10, 1, 1, 1, 0);
-
-                    new BukkitRunnable() {
-                        int timer = 0;
-                        ArrayList<UUID> damagedEntity = new ArrayList<>();
-
-                        @Override
-                        public void run() {
-                            Location playerLoc = player.getLocation();
-
-                            if ((playerLoc.clone().add(0, -0.1, 0).getBlock().getType() != Material.AIR && timer > 5) || timer >= 10 * 20) {
-                                cancel();
-                            }
-
-                            ArrayList<LivingEntity> nearbyLivingEntities = new ArrayList<>(playerLoc.getNearbyLivingEntities(3));
-                            for (LivingEntity entity : nearbyLivingEntities) {
-                                if (entity.getUniqueId() == player.getUniqueId() || damagedEntity.contains(entity.getUniqueId()))
-                                    continue;
-
-                                entity.damage(4);
-                                damagedEntity.add(entity.getUniqueId());
-                            }
-
-                            world.spawnParticle(Particle.SONIC_BOOM, playerLoc, 1, 0, 0, 0, 0);
-                            CoolTimeManager.SetCoolTime(player, supername, 3, delay);
-
-                            timer++;
+            Block targetBlock = player.getTargetBlockExact(10);
+            Random random = new Random();
+            if (targetBlock != null) {
+                new BukkitRunnable() {
+                    int count = 5;
+                    @Override
+                    public void run() {
+                        if (count <= 0) {
+                            cancel();
                         }
-                    }.runTaskTimer(SuperPlugin.getInstance(), 0, 2);
-                }
-            }.runTaskLater(SuperPlugin.getInstance(), 30);
+
+                        new Star(targetBlock.getLocation().clone().add(random.nextInt(6) - 3, 0, random.nextInt(6) - 3));
+                        count--;
+                    }
+                }.runTaskTimer(SuperPlugin.getInstance(), 0, 5);
+            }
         }
     }
 
@@ -214,7 +144,7 @@ public class SuperKiwiFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            new Tornado(player, player.getLocation(), 10, delay);
+
         }
     }
 }

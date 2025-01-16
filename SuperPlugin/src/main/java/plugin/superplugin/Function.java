@@ -167,4 +167,8 @@ public class Function {
 
         return false;
     }
+
+    public static Vector Lerp(Vector start, Vector end, double t) {
+        return start.clone().add(end.clone().subtract(start).multiply(t));
+    }
 }
