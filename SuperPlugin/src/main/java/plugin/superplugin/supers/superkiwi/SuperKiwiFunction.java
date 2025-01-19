@@ -111,7 +111,7 @@ public class SuperKiwiFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            Block targetBlock = player.getTargetBlockExact(10);
+            Block targetBlock = player.getTargetBlockExact(20);
             if (targetBlock != null) {
                 new BlackHole(player.getUniqueId(), targetBlock.getLocation());
             }
@@ -125,14 +125,21 @@ public class SuperKiwiFunction {
             Random random = new Random();
             if (targetBlock != null) {
                 new BukkitRunnable() {
-                    int count = 5;
+                    int count = 15;
+                    int range = 15;
                     @Override
                     public void run() {
                         if (count <= 0) {
                             cancel();
                         }
 
-                        new Star(targetBlock.getLocation().clone().add(random.nextInt(6) - 3, 0, random.nextInt(6) - 3));
+                        Location spawnLoc = targetBlock.getLocation().clone().add(random.nextInt(range) - range / 2, 0, random.nextInt(range) - range / 2);
+                        Location highestLoc = Function.GetHighestLocNear(spawnLoc, 10);
+                        if (highestLoc != null) {
+                            spawnLoc.setY(highestLoc.getY());
+                            new Star(spawnLoc);
+                        }
+
                         count--;
                     }
                 }.runTaskTimer(SuperPlugin.getInstance(), 0, 5);

@@ -29,7 +29,7 @@ public class Star {
         int sampleCountSphere = 100;
 
         world = targetLoc.getWorld();
-        star = (BlockDisplay) world.spawnEntity(targetLoc.add(0, 5, 0), EntityType.BLOCK_DISPLAY);
+        star = (BlockDisplay) world.spawnEntity(targetLoc.add(0, 10, 0), EntityType.BLOCK_DISPLAY);
         star.setBlock(Material.AMETHYST_BLOCK.createBlockData());
         beforeLoc = star.getLocation();
 
@@ -61,7 +61,7 @@ public class Star {
                                 double y = k * Math.cos(pitch);
                                 double z = k * Math.sin(pitch) * Math.sin(yaw);
 
-                                Location blockLocation = starLoc.clone().add(x, y, z);
+                                Location blockLocation = starLoc.clone().add(x, y + radius, z);
 
                                 blockLocation.setX(blockLocation.getBlockX());
                                 blockLocation.setY(blockLocation.getBlockY());
