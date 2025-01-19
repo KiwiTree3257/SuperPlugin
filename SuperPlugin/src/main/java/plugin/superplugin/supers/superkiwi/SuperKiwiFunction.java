@@ -17,10 +17,7 @@ import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
-import plugin.superplugin.customentity.BlackHole;
-import plugin.superplugin.customentity.Star;
-import plugin.superplugin.customentity.Tornado;
-import plugin.superplugin.customentity.WormHole;
+import plugin.superplugin.customentity.*;
 
 import java.util.*;
 
@@ -151,7 +148,7 @@ public class SuperKiwiFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-
+            new StarPoop(player.getLocation().add(0, 10, 0));
         }
     }
 }

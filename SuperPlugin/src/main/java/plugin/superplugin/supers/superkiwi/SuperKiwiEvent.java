@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -162,6 +163,13 @@ public class SuperKiwiEvent implements Listener {
             if (Function.CompareItemPersistentData(itemStack, cancelItemStacks[i], PersistentDataType.INTEGER)) {
                 e.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void EntityDamageEvent(EntityDamageEvent e) {
+        if (e.getEntity().getPersistentDataContainer().has(CustomKeys.STAR_POOP_ENTITY)) {
+            e.setCancelled(true);
         }
     }
 }

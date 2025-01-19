@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 import plugin.superplugin.bossbar.FreezeBossBar;
 
 import java.util.*;
@@ -154,9 +155,14 @@ public class Function {
         return false;
     }
 
-    public static boolean GetIsCollision(Location nowLoc, Location beforeLoc, double step) {
-        Vector dir = nowLoc.clone().subtract(beforeLoc).toVector().normalize();
+    public static boolean GetIsCollision(@NotNull Location nowLoc, @NotNull Location beforeLoc, double step) {
         double distance = beforeLoc.distance(nowLoc);
+        Vector dir = nowLoc.clone().subtract(beforeLoc).toVector().normalize();
+        if (dir.length() > 0) {
+            dir = dir.normalize();
+        } else {
+            dir = new Vector(0, 0, 0);
+        }
 
         for (double i = 0; i <= distance; i += step) {
             Location loc = beforeLoc.clone().add(dir.clone().multiply(i));
