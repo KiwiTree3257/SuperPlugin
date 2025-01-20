@@ -1,6 +1,5 @@
 package plugin.superplugin.customentity;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -12,8 +11,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
+import plugin.superplugin.stack.StarCount;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StarPoop {
     Slime starPoop;
@@ -33,38 +34,35 @@ public class StarPoop {
 
         new BukkitRunnable() {
             int timer = 0;
-            Location beforeLoc = starPoop.getLocation();
+            Location nextLoc = starPoop.getLocation();
 
             @Override
             public void run() {
                 Location starPoopLoc = starPoop.getLocation().clone();
                 starPoop.addPotionEffect(GLOWING);
-                world.spawnParticle(Particle.END_ROD, starPoopLoc.clone().add(0, 0.5, 0), 10, 0, 0, 0, 0.05);
+                world.spawnParticle(Particle.END_ROD, starPoopLoc, 5, 0, 0, 0, 0.05);
 
                 if (timer >= 10 * 20) {
+                    starPoop.teleport(starPoopLoc.clone().set(0, -10000, 0));
                     starPoop.remove();
                     cancel();
                 }
 
-                if (Function.GetIsCollision(starPoopLoc, beforeLoc, 0.1)) {
+                if (Function.GetIsCollision(nextLoc, starPoopLoc, 0.1)) {
                     ArrayList<LivingEntity> entities = new ArrayList<>(starPoopLoc.getNearbyLivingEntities(1));
                     for (LivingEntity entity : entities) {
-                        if (entity instanceof Player) {
-                            Integer starPoops = entity.getPersistentDataContainer().get(CustomKeys.STAR_POOPS, PersistentDataType.INTEGER);
-                            if (starPoops == null) {
-                                starPoops = 0;
-                            }
+                        if (entity instanceof Player player && Objects.equals(player.getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), "superkiwi")) {
+                            StarCount.addCount(player, 1);
 
-                            entity.getPersistentDataContainer().set(CustomKeys.STAR_POOPS, PersistentDataType.INTEGER, starPoops + 1);
-
+                            starPoop.teleport(starPoopLoc.clone().set(0, -10000, 0));
                             starPoop.remove();
                             cancel();
                         }
                     }
                 }
                 else {
-                    beforeLoc = starPoopLoc.clone();
-                    starPoop.teleport(starPoopLoc.clone().add(0, -0.5f, 0));
+                    starPoop.teleport(nextLoc);
+                    nextLoc = starPoop.getLocation().clone().add(0, -1, 0);
                 }
 
                 timer++;

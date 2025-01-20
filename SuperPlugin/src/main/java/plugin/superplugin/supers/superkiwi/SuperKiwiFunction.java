@@ -3,21 +3,18 @@ package plugin.superplugin.supers.superkiwi;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
+import plugin.superplugin.bossbar.StarBossBar;
 import plugin.superplugin.customentity.*;
+import plugin.superplugin.stack.StarCount;
 
 import java.util.*;
 
@@ -60,6 +57,9 @@ public class SuperKiwiFunction {
         playerInventory.addItem(SuperKiwiItem.addItems);
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40);
 
+        StarCount.addPlayer(player);
+        StarCount.updateGauge(player, 0);
+
         player.sendMessage("변신!");
     }
 
@@ -84,6 +84,7 @@ public class SuperKiwiFunction {
         }
 
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
+        StarCount.removePlayer(player);
 
         player.sendMessage("변신 해제!");
     }
@@ -131,7 +132,7 @@ public class SuperKiwiFunction {
                         }
 
                         Location spawnLoc = targetBlock.getLocation().clone().add(random.nextInt(range) - range / 2, 0, random.nextInt(range) - range / 2);
-                        Location highestLoc = Function.GetHighestLocNear(spawnLoc, 10);
+                        Location highestLoc = Function.GetHighestLocNear(spawnLoc, 20);
                         if (highestLoc != null) {
                             spawnLoc.setY(highestLoc.getY());
                             new Star(spawnLoc);
@@ -148,7 +149,22 @@ public class SuperKiwiFunction {
         PersistentDataContainer playerData = player.getPersistentDataContainer();
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
-            new StarPoop(player.getLocation().add(0, 10, 0));
+            Integer starPoopStack = playerData.get(CustomKeys.STAR_POOP_STACK, PersistentDataType.INTEGER);
+            if (starPoopStack == null) {
+                return;
+            }
+
+            if (starPoopStack > 0) {
+                if (starPoopStack >= StarCount.max) {
+                    //utimate
+
+                    StarCount.updateGauge(player, 0);
+                }
+                else {
+                    //skill
+                    StarCount.updateGauge(player, starPoopStack - 1);
+                }
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ public class CustomKeys {
     public static final NamespacedKey NEXT_ATTACK_EUNHOO = new NamespacedKey(SuperPlugin.getInstance(), "nextattackstrong");
 
     public static final NamespacedKey SUPER_KIWI = new NamespacedKey(SuperPlugin.getInstance(), "superkiwi");
-    public static final NamespacedKey STAR_POOPS = new NamespacedKey(SuperPlugin.getInstance(), "starpoops");
+    public static final NamespacedKey STAR_POOP_STACK = new NamespacedKey(SuperPlugin.getInstance(), "starpoopstack");
     public static final NamespacedKey STAR_POOP_ENTITY = new NamespacedKey(SuperPlugin.getInstance(), "starpoopentity");
 
     public static final NamespacedKey FIRE_ARROW = new NamespacedKey(SuperPlugin.getInstance(), "firearrow");
