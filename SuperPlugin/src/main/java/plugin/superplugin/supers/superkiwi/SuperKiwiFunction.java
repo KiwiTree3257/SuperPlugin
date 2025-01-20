@@ -120,27 +120,8 @@ public class SuperKiwiFunction {
 
         if (Objects.equals(playerData.get(CustomKeys.Player_Super, PersistentDataType.STRING), supername)) {
             Block targetBlock = player.getTargetBlockExact(10);
-            Random random = new Random();
             if (targetBlock != null) {
-                new BukkitRunnable() {
-                    int count = 15;
-                    int range = 15;
-                    @Override
-                    public void run() {
-                        if (count <= 0) {
-                            cancel();
-                        }
-
-                        Location spawnLoc = targetBlock.getLocation().clone().add(random.nextInt(range) - range / 2, 0, random.nextInt(range) - range / 2);
-                        Location highestLoc = Function.GetHighestLocNear(spawnLoc, 20);
-                        if (highestLoc != null) {
-                            spawnLoc.setY(highestLoc.getY());
-                            new Star(spawnLoc);
-                        }
-
-                        count--;
-                    }
-                }.runTaskTimer(SuperPlugin.getInstance(), 0, 5);
+                new Star(targetBlock.getLocation());
             }
         }
     }
@@ -163,6 +144,7 @@ public class SuperKiwiFunction {
                 else {
                     //skill
                     StarCount.updateGauge(player, starPoopStack - 1);
+                    new StarArrow(player);
                 }
             }
         }
