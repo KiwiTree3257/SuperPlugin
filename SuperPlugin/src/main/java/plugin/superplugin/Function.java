@@ -1,9 +1,6 @@
 package plugin.superplugin;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -176,5 +173,18 @@ public class Function {
 
     public static Vector Lerp(Vector start, Vector end, double t) {
         return start.clone().add(end.clone().subtract(start).multiply(t));
+    }
+
+    public static void LocToLocParticle(Location loc_1, Location loc_2, double step, Particle particle, int count, Vector offset, double extra) {
+        World world = loc_1.getWorld();
+        Location particleLoc = loc_1.clone();
+        Vector dir = loc_2.clone().subtract(particleLoc).toVector().normalize();
+        if (dir.length() < 0) {
+            dir = new Vector(0, 0, 0);
+        }
+        double distance = particleLoc.distance(loc_2);
+        for (double i = 0; i < distance; i += step) {
+            world.spawnParticle(particle, particleLoc.clone().add(dir.clone().multiply(i)), count, offset.getX() ,offset.getY() ,offset.getZ(), extra, null, true);
+        }
     }
 }

@@ -40,7 +40,7 @@ public class StarPoop {
             public void run() {
                 Location starPoopLoc = starPoop.getLocation().clone();
                 starPoop.addPotionEffect(GLOWING);
-                world.spawnParticle(Particle.END_ROD, starPoopLoc, 5, 0, 0, 0, 0.05);
+                world.spawnParticle(Particle.END_ROD, starPoopLoc, 1, 0, 0, 0, 0.05);
 
                 if (timer >= 10 * 20) {
                     starPoop.teleport(starPoopLoc.clone().set(0, -10000, 0));

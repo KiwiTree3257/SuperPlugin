@@ -3,12 +3,15 @@ package plugin.superplugin.supers.superkiwi;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
@@ -134,12 +137,78 @@ public class SuperKiwiFunction {
             if (starPoopStack == null) {
                 return;
             }
+            World world = player.getWorld();
 
             if (starPoopStack > 0) {
                 if (starPoopStack >= StarCount.max) {
                     //utimate
 
+                    Location skillLoc = player.getLocation().clone().add(0, 20, 0);
+                    Location[] starParticleLocations = new Location[5];
+                    for (int i = 0; i < starParticleLocations.length; i++) {
+                        starParticleLocations[i] = Function.getCircleLocation(5, 72 * i, skillLoc);
+                    }
                     StarCount.updateGauge(player, 0);
+                    new BukkitRunnable() {///////////발동
+                        int timer = 0;
+                        int starPoint = 0;
+
+                        @Override
+                        public void run() {
+                            if (timer % 20 == 0) {
+                                if (starParticleLocations.length >= starPoint) {
+                                    for (int i = 0; i < starPoint; i++) {
+                                        Function.LocToLocParticle(starParticleLocations[i], starParticleLocations[(i + 2) % starParticleLocations.length], 0.2, Particle.END_ROD, 1, new Vector(0, 0, 0), 0);
+                                    }
+
+                                    starPoint++;
+                                }
+                                else {
+                                    timer = 0;
+                                    starPoint = starParticleLocations.length;
+                                    new BukkitRunnable() {
+                                        @Override
+                                        public void run() {
+                                            if (timer >= 5 * 20) {
+                                                cancel();
+                                            }
+
+                                            Block targetBlock = player.getTargetBlockExact(100);
+
+                                            for (int i = 0; i < starPoint; i++) {
+                                                Function.LocToLocParticle(starParticleLocations[i], starParticleLocations[(i + 2) % starParticleLocations.length], 0.2, Particle.END_ROD, 1, new Vector(0, 0, 0), 0);
+                                            }
+                                            if (targetBlock != null) {
+                                                Function.LocToLocParticle(skillLoc, targetBlock.getLocation(), 0.5, Particle.END_ROD, 1, new Vector(0.5, 0.5, 0.5), 0);
+                                                Function.LocToLocParticle(skillLoc, targetBlock.getLocation(), 0.2, Particle.GLOW, 1, new Vector(0.1, 0.1, 0.1), 0);
+                                                if (timer % 5 == 0) {
+                                                    world.spawnParticle(Particle.EXPLOSION, targetBlock.getLocation(), 1, 1, 1, 1, 0);
+
+                                                    Vector dir = skillLoc.clone().subtract(targetBlock.getLocation()).toVector().normalize();
+                                                    double distance = targetBlock.getLocation().distance(skillLoc);
+                                                    for (double i = 0; i < distance; i += 1) {
+                                                        ArrayList<LivingEntity> entities = new ArrayList<>(targetBlock.getLocation().clone().add(dir.clone().multiply(i)).getNearbyLivingEntities(2));
+                                                        for (LivingEntity entity : entities) {
+                                                            if (entity.getUniqueId().equals(player.getUniqueId())) {
+                                                                continue;
+                                                            }
+                                                            entity.damage(1);
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            timer++;
+                                        }
+                                    }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
+
+                                    cancel();
+                                }
+                            }
+
+                            timer++;
+                        }
+                    }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
                 }
                 else {
                     //skill
