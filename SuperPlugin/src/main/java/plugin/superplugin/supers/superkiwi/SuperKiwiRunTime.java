@@ -37,7 +37,7 @@ public class SuperKiwiRunTime {
 
         new BukkitRunnable() {
             int starTimer = 0;
-            final int starTime = 2 * 20;
+            int starTime = (random.nextInt(3 - 1) + 1) * 20;
 
             @Override
             public void run() {
@@ -60,6 +60,7 @@ public class SuperKiwiRunTime {
 
                 if (starTimer >= starTime) {
                     starTimer = 0;
+                    starTime = (random.nextInt(3 - 1) + 1) * 20;
                 }
             }
         }.runTaskTimer(plugin, 0, 1);

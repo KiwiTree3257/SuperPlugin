@@ -123,7 +123,7 @@ public class SuperJihwanFunction {
                     final int particleTime = 20 * 2;
                     final int spinCount = particleTime / 20;
                     final int radius = 5;
-                    final int addYVelocity = 2;
+                    final int addYVelocity = 3;
                     final PotionEffect DARKNESS = new PotionEffect(PotionEffectType.DARKNESS, 3 * 20, 0, false, false, false);
                     final PotionEffect SLOWNESS = new PotionEffect(PotionEffectType.SLOWNESS, 3 * 20, 1, false, false, false);
 
@@ -196,7 +196,7 @@ public class SuperJihwanFunction {
                                 if (entity.getUniqueId() == player.getUniqueId() || damagedEntity.contains(entity.getUniqueId()))
                                     continue;
 
-                                entity.damage(4);
+                                entity.damage(6);
                                 damagedEntity.add(entity.getUniqueId());
                             }
 

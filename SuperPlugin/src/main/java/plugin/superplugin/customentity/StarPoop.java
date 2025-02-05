@@ -2,6 +2,7 @@ package plugin.superplugin.customentity;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataType;
@@ -51,8 +52,10 @@ public class StarPoop {
                 if (Function.GetIsCollision(nextLoc, starPoopLoc, 0.1)) {
                     ArrayList<LivingEntity> entities = new ArrayList<>(starPoopLoc.getNearbyLivingEntities(1));
                     for (LivingEntity entity : entities) {
-                        if (entity instanceof Player player && Objects.equals(player.getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), "superkiwi")) {
+                        if (entity instanceof Player player && Objects.equals(player.getPersistentDataContainer().get(CustomKeys.Player_Super, PersistentDataType.STRING), "superkiwi") &&
+                        player.getPersistentDataContainer().get(CustomKeys.STAR_POOP_STACK, PersistentDataType.INTEGER) < StarCount.max) {
                             StarCount.addCount(player, 1);
+                            world.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_PLACE, 1, 1);
 
                             starPoop.teleport(starPoopLoc.clone().set(0, -10000, 0));
                             starPoop.remove();

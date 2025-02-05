@@ -52,6 +52,7 @@ public class WindStorm {
                     Vector velocity = entity.getVelocity();
                     velocity.add(knockBackDir);
                     entity.setVelocity(velocity);
+                    entity.damage(4);
 
                     moveEntities.add(entity);
                 }

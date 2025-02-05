@@ -5,6 +5,8 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
@@ -19,6 +21,8 @@ import java.util.UUID;
 public class BlackHole {
     BlockDisplay blackHole;
     UUID playerUUID;
+    PotionEffect WITHER = new PotionEffect(PotionEffectType.WITHER, 6 * 20, 0, false, false);
+
     public BlackHole(UUID playerUUID, Location spawnLoc) {
         this.playerUUID = playerUUID;
         Player player = Bukkit.getPlayer(playerUUID);
@@ -28,6 +32,7 @@ public class BlackHole {
         blackHole.setBlock(Material.BLACK_CONCRETE.createBlockData());
         Transformation transformation = new Transformation(new Vector3f(-1.5f, -1, -1.5f), new Quaternionf(), new Vector3f(3, 3, 3), new Quaternionf());
         blackHole.setTransformation(transformation);
+        world.playSound(player, Sound.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, 1, 1);
 
         new BukkitRunnable() {
             int timer = 0;
@@ -42,6 +47,9 @@ public class BlackHole {
                     ArrayList<LivingEntity> entities = new ArrayList<>(blackHoleLoc.getNearbyLivingEntities(radius));
                     for (LivingEntity entity : entities) {
                         entity.setVelocity(entity.getLocation().subtract(blackHoleLoc).toVector().multiply(0.5));
+                        if (!entity.getUniqueId().equals(player.getUniqueId())) {
+                            entity.addPotionEffect(WITHER);
+                        }
                     }
                     blackHole.remove();
 

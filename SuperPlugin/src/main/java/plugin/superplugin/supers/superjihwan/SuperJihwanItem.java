@@ -27,28 +27,28 @@ public class SuperJihwanItem {
             SUPER_JIHWAN.setItemMeta(meta);
         }
 
-        SUPER_JIHWAN_SKILL_1 = Function.BuildItem(Material.FEATHER, 1, ChatColor.YELLOW + "1");
+        SUPER_JIHWAN_SKILL_1 = Function.BuildItem(Material.FEATHER, 1, ChatColor.YELLOW + "돌풍");
         {
             ItemMeta meta = SUPER_JIHWAN_SKILL_1.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JIHWAN, PersistentDataType.INTEGER, 1);
             SUPER_JIHWAN_SKILL_1.setItemMeta(meta);
         }
 
-        SUPER_JIHWAN_SKILL_2 = Function.BuildItem(Material.WHITE_DYE, 1, ChatColor.YELLOW + "2");
+        SUPER_JIHWAN_SKILL_2 = Function.BuildItem(Material.WHITE_DYE, 1, ChatColor.YELLOW + "상승기류");
         {
             ItemMeta meta = SUPER_JIHWAN_SKILL_2.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JIHWAN, PersistentDataType.INTEGER, 2);
             SUPER_JIHWAN_SKILL_2.setItemMeta(meta);
         }
 
-        SUPER_JIHWAN_SKILL_3 = Function.BuildItem(Material.LIGHT_GRAY_DYE, 1, ChatColor.YELLOW + "3");
+        SUPER_JIHWAN_SKILL_3 = Function.BuildItem(Material.LIGHT_GRAY_DYE, 1, ChatColor.YELLOW + "초열풍참");
         {
             ItemMeta meta = SUPER_JIHWAN_SKILL_3.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JIHWAN, PersistentDataType.INTEGER, 3);
             SUPER_JIHWAN_SKILL_3.setItemMeta(meta);
         }
 
-        SUPER_JIHWAN_ULTIMATE = Function.BuildItem(Material.WIND_CHARGE, 1, ChatColor.YELLOW + "4");
+        SUPER_JIHWAN_ULTIMATE = Function.BuildItem(Material.WIND_CHARGE, 1, ChatColor.YELLOW + "위타천 태풍");
         {
             ItemMeta meta = SUPER_JIHWAN_ULTIMATE.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JIHWAN, PersistentDataType.INTEGER, 4);

@@ -48,7 +48,7 @@ public class SuperSihooItem {
             SUPER_SIHOO_SKILL_3.setItemMeta(meta);
         }
 
-        SUPER_SIHOO_ULTIMATE = Function.BuildItem(Material.GRAY_DYE, 1, ChatColor.YELLOW + "아이스 돔");
+        SUPER_SIHOO_ULTIMATE = Function.BuildItem(Material.GRAY_DYE, 1, ChatColor.YELLOW + "동빙한설");
         {
             ItemMeta meta = SUPER_SIHOO_ULTIMATE.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_SIHOO, PersistentDataType.INTEGER, 4);

@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import plugin.superplugin.CoolTimeManager;
 import plugin.superplugin.CustomKeys;
 import plugin.superplugin.Function;
 import plugin.superplugin.SuperPlugin;
@@ -115,6 +116,7 @@ public class SuperKiwiFunction {
             Block targetBlock = player.getTargetBlockExact(20);
             if (targetBlock != null) {
                 new BlackHole(player.getUniqueId(), targetBlock.getLocation());
+                CoolTimeManager.SetCoolTime(player, supername, 2, delay);
             }
         }
     }
@@ -125,6 +127,7 @@ public class SuperKiwiFunction {
             Block targetBlock = player.getTargetBlockExact(10);
             if (targetBlock != null) {
                 new Star(targetBlock.getLocation());
+                CoolTimeManager.SetCoolTime(player, supername, 3, delay);
             }
         }
     }
@@ -155,11 +158,12 @@ public class SuperKiwiFunction {
 
                         @Override
                         public void run() {
-                            if (timer % 20 == 0) {
+                            if (timer % 10 == 0) {
                                 if (starParticleLocations.length >= starPoint) {
                                     for (int i = 0; i < starPoint; i++) {
                                         Function.LocToLocParticle(starParticleLocations[i], starParticleLocations[(i + 2) % starParticleLocations.length], 0.2, Particle.END_ROD, 1, new Vector(0, 0, 0), 0);
                                     }
+                                    world.playSound(skillLoc, Sound.BLOCK_END_PORTAL_FRAME_FILL, 3, 1);
 
                                     starPoint++;
                                 }
@@ -192,12 +196,14 @@ public class SuperKiwiFunction {
                                                             if (entity.getUniqueId().equals(player.getUniqueId())) {
                                                                 continue;
                                                             }
-                                                            entity.damage(1);
+                                                            entity.damage(2);
                                                         }
                                                     }
                                                 }
+                                                world.playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
                                             }
 
+                                            CoolTimeManager.SetCoolTime(player, supername, 4, 2 * 20);
                                             timer++;
                                         }
                                     }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
@@ -206,6 +212,7 @@ public class SuperKiwiFunction {
                                 }
                             }
 
+                            CoolTimeManager.SetCoolTime(player, supername, 4, delay);
                             timer++;
                         }
                     }.runTaskTimer(SuperPlugin.getInstance(), 0, 1);
@@ -214,6 +221,7 @@ public class SuperKiwiFunction {
                     //skill
                     StarCount.updateGauge(player, starPoopStack - 1);
                     new StarArrow(player);
+                    CoolTimeManager.SetCoolTime(player, supername, 4, 2 * 20);
                 }
             }
         }

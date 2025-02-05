@@ -87,14 +87,14 @@ public class SuperKiwiEvent implements Listener {
                         break;
                     }
 
-                    SuperKiwiFunction.KiwiSkill_2(player, 2 * 20);
+                    SuperKiwiFunction.KiwiSkill_2(player, 15 * 20);
                     break;
                 case 3:
                     if (Function.CheckSkillUse(player, supername, 3)) {
                         break;
                     }
 
-                    SuperKiwiFunction.KiwiSkill_3(player, 2 * 20);
+                    SuperKiwiFunction.KiwiSkill_3(player, 20 * 20);
                     break;
                 case 4:
                     if (Function.CheckSkillUse(player, supername, 4)) {
@@ -105,7 +105,7 @@ public class SuperKiwiEvent implements Listener {
                     break;
             }
         } else if (itemData.has(CustomKeys.WORM_HOLE)) {
-            int delay = 2 * 20;
+            int delay = 10 * 20;
 
             playerWormHoles.putIfAbsent(player, new WormHole(player.getUniqueId()));
             playerWormHoles.get(player).ThrowWormHole((SuperKiwiItem.WORMHOLE.getAmount() - item.getAmount()) % 2);

@@ -2,6 +2,7 @@ package plugin.superplugin.customentity;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -36,13 +37,14 @@ public class StarArrow {
                     if (entity.getUniqueId().equals(player.getUniqueId())) {
                         continue;
                     }
-                    entity.damage(4);
+                    entity.damage(6);
                     cancel();
                 }
 
                 world.spawnParticle(Particle.GLOW, starArrow, 10, 0.1, 0.1, 0.1, 0.05);
                 if (timer % 10 == 0) {
                     world.spawnParticle(Particle.END_ROD, starArrow, 50, 0, 0, 0, 0.1);
+                    world.playSound(starArrow, Sound.ENTITY_ENDER_EYE_LAUNCH, 1, 2);
                 }
 
                 beforeLoc = starArrow.clone();

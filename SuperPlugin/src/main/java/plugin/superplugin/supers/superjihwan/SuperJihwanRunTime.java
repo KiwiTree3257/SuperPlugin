@@ -25,7 +25,7 @@ public class SuperJihwanRunTime {
     PotionEffect SLOW_FALLING;
 
     final double jetPlus = 0.01;
-    final double jetMinus = 0.01;
+    final double jetMinus = 0.1;
     final double jetAddY = 0.1;
     private HashMap<UUID, Double> playerJetTicks;
 

@@ -35,6 +35,7 @@ public class Star {
         star.setTransformation(transformation);
 
         Vector direction = new Vector(0, -1, 0).multiply(speed);
+        world.playSound(star.getLocation(), Sound.ENTITY_ENDER_EYE_LAUNCH, 2, 0.1f);
 
         new BukkitRunnable() {
             int timer = 0;
@@ -46,7 +47,7 @@ public class Star {
 
                 if (timer >= lifeTime || targetLoc.getY() >= starLoc.getY()) {
 
-                    world.playSound(starLoc, Sound.ENTITY_GENERIC_EXPLODE, 2, 1);
+                    world.playSound(starLoc, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 2, 1);
                     ArrayList<Location> sphereLoc = new ArrayList<>();
 
                     for (int i = 0; i <= sampleCountSphere; i++) {

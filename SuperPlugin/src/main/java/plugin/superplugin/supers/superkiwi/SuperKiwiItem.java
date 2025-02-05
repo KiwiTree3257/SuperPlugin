@@ -21,42 +21,42 @@ public class SuperKiwiItem {
     public static ItemStack[] superItems = null;
 
     public SuperKiwiItem() {
-        SUPER_KIWI = Function.BuildItem(Material.CALCITE, 1, ChatColor.YELLOW + "슈퍼 키위");
+        SUPER_KIWI = Function.BuildItem(Material.AMETHYST_BLOCK, 1, ChatColor.YELLOW + "슈퍼 키위");
         {
             ItemMeta meta = SUPER_KIWI.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_KIWI, PersistentDataType.INTEGER, 0);
             SUPER_KIWI.setItemMeta(meta);
         }
 
-        SUPER_KIWI_SKILL_1 = Function.BuildItem(Material.FEATHER, 1, ChatColor.YELLOW + "1");
+        SUPER_KIWI_SKILL_1 = Function.BuildItem(Material.ECHO_SHARD, 1, ChatColor.YELLOW + "차원 이동기");
         {
             ItemMeta meta = SUPER_KIWI_SKILL_1.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_KIWI, PersistentDataType.INTEGER, 1);
             SUPER_KIWI_SKILL_1.setItemMeta(meta);
         }
 
-        SUPER_KIWI_SKILL_2 = Function.BuildItem(Material.WHITE_DYE, 1, ChatColor.YELLOW + "2");
+        SUPER_KIWI_SKILL_2 = Function.BuildItem(Material.ENDER_EYE, 1, ChatColor.YELLOW + "강착");
         {
             ItemMeta meta = SUPER_KIWI_SKILL_2.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_KIWI, PersistentDataType.INTEGER, 2);
             SUPER_KIWI_SKILL_2.setItemMeta(meta);
         }
 
-        SUPER_KIWI_SKILL_3 = Function.BuildItem(Material.LIGHT_GRAY_DYE, 1, ChatColor.YELLOW + "3");
+        SUPER_KIWI_SKILL_3 = Function.BuildItem(Material.AMETHYST_SHARD, 1, ChatColor.YELLOW + "빅뱅");
         {
             ItemMeta meta = SUPER_KIWI_SKILL_3.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_KIWI, PersistentDataType.INTEGER, 3);
             SUPER_KIWI_SKILL_3.setItemMeta(meta);
         }
 
-        SUPER_KIWI_ULTIMATE = Function.BuildItem(Material.WIND_CHARGE, 1, ChatColor.YELLOW + "4");
+        SUPER_KIWI_ULTIMATE = Function.BuildItem(Material.NETHER_STAR, 1, ChatColor.YELLOW + "천상강림");
         {
             ItemMeta meta = SUPER_KIWI_ULTIMATE.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_KIWI, PersistentDataType.INTEGER, 4);
             SUPER_KIWI_ULTIMATE.setItemMeta(meta);
         }
 
-        WORMHOLE = Function.BuildItem(Material.BROWN_DYE, 3, ChatColor.YELLOW + "wromhoel");
+        WORMHOLE = Function.BuildItem(Material.GLOW_INK_SAC, 3, ChatColor.YELLOW + "웜홀 가루");
         {
             ItemMeta meta = WORMHOLE.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.WORM_HOLE, PersistentDataType.INTEGER, 1);

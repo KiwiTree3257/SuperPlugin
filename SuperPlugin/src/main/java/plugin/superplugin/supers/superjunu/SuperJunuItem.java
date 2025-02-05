@@ -46,7 +46,7 @@ public class SuperJunuItem {
             SUPER_JUNU.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_1 = Function.BuildItem(Material.IRON_SWORD, 1, ChatColor.YELLOW + "불의 검");
+        SUPER_JUNU_SKILL_1 = Function.BuildItem(Material.IRON_SWORD, 1, ChatColor.YELLOW + "화도");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_1.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 1);
@@ -55,21 +55,21 @@ public class SuperJunuItem {
             SUPER_JUNU_SKILL_1.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_2 = Function.BuildItem(Material.ORANGE_DYE, 1, ChatColor.YELLOW + "드레곤 플라이");
+        SUPER_JUNU_SKILL_2 = Function.BuildItem(Material.ORANGE_DYE, 1, ChatColor.YELLOW + "전광석화");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_2.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 2);
             SUPER_JUNU_SKILL_2.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_3 = Function.BuildItem(Material.YELLOW_DYE, 1, ChatColor.YELLOW + "불화살");
+        SUPER_JUNU_SKILL_3 = Function.BuildItem(Material.YELLOW_DYE, 1, ChatColor.YELLOW + "무관");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_3.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 3);
             SUPER_JUNU_SKILL_3.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_4 = Function.BuildItem(Material.NETHERITE_SWORD, 1, ChatColor.YELLOW + "불의 검");
+        SUPER_JUNU_SKILL_4 = Function.BuildItem(Material.NETHERITE_SWORD, 1, ChatColor.YELLOW + "화광충전");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_4.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 4);
@@ -78,35 +78,35 @@ public class SuperJunuItem {
             SUPER_JUNU_SKILL_4.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_5 = Function.BuildItem(Material.ORANGE_DYE, 1, ChatColor.YELLOW + "메테오");
+        SUPER_JUNU_SKILL_5 = Function.BuildItem(Material.ORANGE_DYE, 1, ChatColor.YELLOW + "화덕진군");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_5.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 5);
             SUPER_JUNU_SKILL_5.setItemMeta(meta);
         }
 
-        SUPER_JUNU_SKILL_6 = Function.BuildItem(Material.YELLOW_DYE, 1, ChatColor.YELLOW + "브레스");
+        SUPER_JUNU_SKILL_6 = Function.BuildItem(Material.YELLOW_DYE, 1, ChatColor.YELLOW + "벽력성");
         {
             ItemMeta meta = SUPER_JUNU_SKILL_6.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 6);
             SUPER_JUNU_SKILL_6.setItemMeta(meta);
         }
 
-        SUPER_JUNU_ULTIMATE = Function.BuildItem(Material.FIRE_CHARGE, 1, ChatColor.YELLOW + "각성");
+        SUPER_JUNU_ULTIMATE = Function.BuildItem(Material.FIRE_CHARGE, 1, ChatColor.YELLOW + "풍림화산");
         {
             ItemMeta meta = SUPER_JUNU_ULTIMATE.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 7);
             SUPER_JUNU_ULTIMATE.setItemMeta(meta);
         }
 
-        SUPER_JUNU_ULTIMATE_2 = Function.BuildItem(Material.FIRE_CHARGE, 1, ChatColor.YELLOW + "라이딩드래곤");
+        SUPER_JUNU_ULTIMATE_2 = Function.BuildItem(Material.FIRE_CHARGE, 1, ChatColor.YELLOW + "등용문");
         {
             ItemMeta meta = SUPER_JUNU_ULTIMATE_2.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.SUPER_JUNU, PersistentDataType.INTEGER, 8);
             SUPER_JUNU_ULTIMATE_2.setItemMeta(meta);
         }
 
-        FIRE_ARROW = Function.BuildItem(Material.ARROW, 10, ChatColor.YELLOW + "불화살");
+        FIRE_ARROW = Function.BuildItem(Material.ARROW, 10, ChatColor.YELLOW + "무관");
         {
             ItemMeta meta = FIRE_ARROW.getItemMeta();
             meta.getPersistentDataContainer().set(CustomKeys.FIRE_ARROW, PersistentDataType.INTEGER, 1);
