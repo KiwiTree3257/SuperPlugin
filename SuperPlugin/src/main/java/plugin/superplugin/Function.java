@@ -187,4 +187,18 @@ public class Function {
             world.spawnParticle(particle, particleLoc.clone().add(dir.clone().multiply(i)), count, offset.getX() ,offset.getY() ,offset.getZ(), extra, null, true);
         }
     }
+
+    public static void AllPlayerSkillStop() {
+        ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (Player p : players) {
+            p.getPersistentDataContainer().set(CustomKeys.SKILL_STOP, PersistentDataType.BOOLEAN, true);
+        }
+    }
+
+    public static void AllPlayerSkillStopStop() {
+        ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (Player p : players) {
+            p.getPersistentDataContainer().remove(CustomKeys.SKILL_STOP);
+        }
+    }
 }

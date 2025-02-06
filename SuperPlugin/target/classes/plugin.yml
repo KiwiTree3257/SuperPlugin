@@ -8,3 +8,7 @@ commands:
     description: 슈퍼 아이템을 얻을 수 있는 명령어입니다.
     usage: /givesuperitem [아이템] [수]
     aliases: [givesuperitem SUPER_JUNU, givesuperitem SUPER_SIHOO, givesuperitem SUPER_JIHWAN, givesuperitem SUPER_EUNHOO, givesuperitem SUPER_KIWI]
+  skillstop:
+    description: a
+  skillstopstop:
+    description: d

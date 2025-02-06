@@ -96,7 +96,6 @@ public class SuperEunhooEvent implements Listener {
                     if (Function.CheckSkillUse(player, supername, 4)) {
                         break;
                     }
-
                     SuperEunhooFunction.EunhooUltimate(player, 35 * 20);
                     break;
             }
@@ -156,8 +155,8 @@ public class SuperEunhooEvent implements Listener {
             DarkStack.DarkEntity((LivingEntity) entity);
 
             if (e.getDamager().getPersistentDataContainer().has(CustomKeys.NEXT_ATTACK_EUNHOO)) {
-                entity.setVelocity(damager.getLocation().getDirection().normalize().multiply(3));
-                ((LivingEntity) entity).damage(6);
+                entity.setVelocity(damager.getLocation().getDirection().normalize().multiply(4));
+                ((LivingEntity) entity).damage(8);
                 e.getDamager().getPersistentDataContainer().remove(CustomKeys.NEXT_ATTACK_EUNHOO);
             }
         }

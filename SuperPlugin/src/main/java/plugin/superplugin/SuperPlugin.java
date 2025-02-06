@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.superplugin.command.GiveSuperPluginItem;
+import plugin.superplugin.command.SkillStop;
+import plugin.superplugin.command.SkillStopStop;
 import plugin.superplugin.customworld.darkworld.DarkWorldController;
 import plugin.superplugin.customworld.darkworld.DarkWorldEvent;
 import plugin.superplugin.customworld.darkworld.DarkWorldGenerator;
@@ -29,6 +31,8 @@ public final class SuperPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         getCommand("givesuperitem").setExecutor(new GiveSuperPluginItem());
+        getCommand("skillstop").setExecutor(new SkillStop());
+        getCommand("skillstopstop").setExecutor(new SkillStopStop());
 
         Bukkit.getPluginManager().registerEvents(new SuperJunuEvent(), this);
         new SuperJunuItem();
